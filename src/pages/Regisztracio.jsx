@@ -65,7 +65,7 @@ function Regisztracio() {
                 />
 
                 <div className="text-center mt-3">
-                    <a href="/fooldal">
+                    <a href="/bejelentkezes">
                         <Gomb
                             szin='btn btn-dark px-4'
                             onClick={onReg}

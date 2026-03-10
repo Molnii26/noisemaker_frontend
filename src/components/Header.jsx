@@ -3,7 +3,7 @@ import NavBar from "./NavBar"
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { whoAmI } from "../api";
+import { logout, whoAmI } from "../api";
 
 function Header() {
     const navigate = useNavigate()
@@ -52,11 +52,10 @@ function Header() {
             </a> */}
             <div>
                 <NavBar user={user} onLogout={onLogout} />
-                {errorUser && <div className="alert alert-danger text-center my-2">{errorUser}</div>}
             </div>
 
         </div>
     )
 }
 
-export default Header
+export default Header 
