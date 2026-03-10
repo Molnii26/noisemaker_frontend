@@ -65,15 +65,6 @@ export default function Bejelentkezes() {
                 </div>
 
                 <div className="text-center mt-3">
-                    <a href="/admin">
-                        <Gomb
-                            onClick={onLogin}
-                            text='Belépés ADMINként'
-                        />
-                    </a>
-                </div>
-
-                <div className="text-center mt-3">
                     <a href="/fooldal">
                         <Gomb
                             onClick=''

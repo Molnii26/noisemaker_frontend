@@ -7,7 +7,6 @@ import Regisztracio from '../src/pages/Regisztracio';
 import Bejelentkezes from '../src/pages/Bejelentkezes';
 import Kosar from '../src/pages/Kosar';
 import Termekek from './pages/Termekek';
-import Fooldal_Admin from './pages/Fooldal_Admin';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,7 +14,6 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Navigate to="/fooldal" replace />} />
         <Route path="/fooldal" element={<Fooldal />} />
-        <Route path="/admin" element={<Fooldal_Admin />} />
         <Route path="/regisztracio" element={<Regisztracio />} />
         <Route path="/bejelentkezes" element={<Bejelentkezes />} />
         <Route path="/kosar" element={<Kosar />} />

@@ -30,7 +30,7 @@ function Header() {
         }
 
         setUser(null)
-        navigate('/')
+        navigate('/bejelentkezes')
     }
     return (
         <div className="header">

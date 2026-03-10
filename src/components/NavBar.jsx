@@ -6,7 +6,7 @@ export default function NavBar({ user, onLogout }) {
     const isLoggedIn = !!user
     //console.log(isLoggedIn);
 
-    const isAdmin = user?.role === 'admin'
+    const isAdmin = user?.role === 'Admin'
 
     return (
         <div className="container-fluid px-4">
@@ -20,12 +20,10 @@ export default function NavBar({ user, onLogout }) {
                                 Fiókom
                             </Link>
 
-                            {/* Admin oldal */}
                             {isAdmin && <Link to='/adminpanel' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
                                 Admin panel
                             </Link>}
 
-                            {/* Logout */}
                             <Gomb className='px-3 py-1 text-decoration-none rounded text-dark fs-4' onClick={onLogout} text='Kijelentkezés' />
                         </>
                     ) : (

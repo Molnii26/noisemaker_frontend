@@ -26,6 +26,7 @@ function Regisztracio() {
                 return alert(data.error)
             }
             setUzenet(data.message)
+            setTimeout(() => navigate('/'), 2000)
             
         } catch (err) {           
             return alert('Nem sikerült kapcsolódni a backendhez.')        
