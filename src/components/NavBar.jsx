@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import regKep from "../../images/reg.svg"
 
 import Gomb from './Gomb'
 

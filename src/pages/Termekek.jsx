@@ -17,7 +17,7 @@ function Termekek() {
     const subcategories = {
         húros: ["akusztikus", "elektromos", "basszus"],
         billentyűs: ["digitális zongora", "szintetizátor"],
-        ütős: ["dob", "percussion"],
+        ütős: ["dob"],
         fúvós: ["fuvola", "klarinét", "szaxofon"]
     };
 

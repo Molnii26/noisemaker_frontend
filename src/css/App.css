@@ -12,7 +12,9 @@ div.left-part{
   display: inline-block;
   width: 65%;
   height: 100%;
-  background-color: #1C1512;
+  justify-content: center;
+  align-self: center;
+  background-color: none;
 }
 
 div.right-part{
@@ -55,6 +57,11 @@ img{
   align-items: center;
   overflow: scroll;
   align-self: center;
+  image-rendering: crisp-edges;
+}
+
+img.carousel-img{
+  image-rendering: crisp-edges;
 }
 
 h1{
@@ -356,6 +363,7 @@ div.products-container{
   background-color: #3a2318;
   padding: 20px;
   border-radius: 10px;
+  height: auto;
   width: 200px;
   color: white;
   transition: 0.3s;
@@ -364,6 +372,7 @@ div.products-container{
 .product-card:hover {
   transform: scale(1.05);
 }
+
 /*------------------------------------*/
 
 div.siker{
@@ -372,10 +381,28 @@ div.siker{
   margin-bottom: 20px;
 }
 
+div.fiokom{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+span.carousel-control-next-icon,
+span.carousel-control-prev-icon,
+span.sr-only {
+  display: none;
+}
+
+div.carousel-slide{
+  margin-right: 100px;
+}
+
 @media (max-width: 600px) {
   .topnav input[type=text] {
     float: none;
-    text-align: left;
+    text-align: center;
     width: 100%;
     margin: 0;
     padding: 14px;

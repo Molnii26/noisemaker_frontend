@@ -12,10 +12,31 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/users' : {
+      '/users': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
+      },
+
+      '/orders': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
+      },
+
+      '/categories': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
+      },
+
+      '/products': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
+      },
+
+      '/cart': {
         target: 'http://127.0.0.1:3000',
         changeOrigin: true
       }
+
     }
   }
 })
