@@ -7,7 +7,7 @@ function Kosar(){
     return(
         <>
             <Header/>
-
+                
             <Footer/>
         </>
         

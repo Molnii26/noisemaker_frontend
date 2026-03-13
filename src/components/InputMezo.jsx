@@ -10,7 +10,6 @@ function InputMezo({ label, type, value, placeholder, setValue }){
                     onChange={(e) => setValue(e.target.value)}
                     placeholder={placeholder}
                 />
-
             </div>
         </>
     )

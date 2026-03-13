@@ -55,7 +55,7 @@ export async function whoAmI() {
 
 export async function logout() {
     const res = await fetch(`${BACKEND_URL}/logout`, {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include'
     })
 
