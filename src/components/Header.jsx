@@ -14,7 +14,7 @@ function Header() {
     useEffect(() => {
         async function load() {
             const data = await whoAmI()
-            
+
             if (data.error) {
                 return setErrorUser(data.error)
             }
@@ -37,19 +37,7 @@ function Header() {
             <a className="cim" href='/fooldal' rel="noopener noreferrer">
                 <h1 className="cim-text">NOISEMAKER</h1>
             </a>
-            <div className="kereses">
-                <div class="topnav">
-                    <input type="text" placeholder="Keresés..." />
-
-                </div>
-
-            </div>
-            {/* <a className="register" href='/regisztracio' rel="noopener noreferrer">
-                <img className="reg" src="../images/reg.svg" alt="Reg" />
-            </a>
-            <a className="cart-link" href='/kosar' rel="noopener noreferrer">
-                <img className="cart" src="../images/cart-white.svg" alt="Cart Icon" />
-            </a> */}
+            
             <div>
                 <NavBar user={user} onLogout={onLogout} />
             </div>

@@ -8,6 +8,7 @@ import Bejelentkezes from '../src/pages/Bejelentkezes';
 import Kosar from '../src/pages/Kosar';
 import Termekek from './pages/Termekek';
 import Fiokom from './pages/Fiokom';
+import Termek from './pages/Termek';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/kosar" element={<Kosar />} />
         <Route path="/termekek" element={<Termekek />} />
         <Route path="/fiokom" element={<Fiokom />} />
+        <Route path="/termek/:id" element={<Termek />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

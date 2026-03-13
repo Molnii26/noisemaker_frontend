@@ -48,7 +48,7 @@ function Termekek() {
     return (
         <>
             <Header />
-            <div className="container">
+            <div className="container-termekek">
                 <div className="filter">
 
                     <h3>Kategória</h3>
@@ -87,13 +87,16 @@ function Termekek() {
                 </div>
 
                 <div className="products-container">
-                    {filteredProducts.map(product => (
+                    <a href='/termek/:id'>
+                        {filteredProducts.map(product => (
                         <div key={product.id} className="product-card">
                             <h4>{product.name}</h4>
                             <p>{product.price.toLocaleString()} Ft</p>
                             <span>{product.category} - {product.subcategory}</span>
                         </div>
                     ))}
+                    </a>
+                    
                 </div>
 
 
