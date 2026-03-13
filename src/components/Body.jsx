@@ -34,7 +34,7 @@ function Body() {
 
             <card>
               <a href="/termekek">
-                <h2>TERMÉKEK</h2>
+                <h2 style={{ textDecoration: "none"}}>TERMÉKEK</h2>
               </a>
             </card>
           </navbar>

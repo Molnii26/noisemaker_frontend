@@ -21,6 +21,10 @@ export default function NavBar({ user, onLogout }) {
                                 Fiókom
                             </Link>
 
+                            <Link to='/kosar' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
+                                Kosár
+                            </Link>
+
                             {isAdmin && <Link to='/adminpanel' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
                                 Admin panel
                             </Link>}
