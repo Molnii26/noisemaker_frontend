@@ -1,5 +1,4 @@
 import '../css/App.css'
-
 import Header from "../components/Header";
 import Footer from '../components/Footer';
 import { useState } from 'react';
@@ -87,15 +86,14 @@ function Termekek() {
                 </div>
 
                 <div className="products-container">
-                    <a href='/termek/:id'>
                         {filteredProducts.map(product => (
-                        <div key={product.id} className="product-card">
+                        <a href='/termek/:Product_Id' key={product.id} className="product-card">
                             <h4>{product.name}</h4>
+                            <img className='product-img' src='../../images/piano.jpg'></img>
                             <p>{product.price.toLocaleString()} Ft</p>
                             <span>{product.category} - {product.subcategory}</span>
-                        </div>
+                        </a>
                     ))}
-                    </a>
                     
                 </div>
 
