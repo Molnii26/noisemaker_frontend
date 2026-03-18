@@ -1,12 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import Gomb from './Gomb'
 
 export default function NavBar({ user, onLogout }) {
     const isLoggedIn = !!user
     //console.log(isLoggedIn);
+    //console.log(user);
+    const isAdmin = user?.User_Role === 'Admin'
+    //console.log(isAdmin);
 
-    const isAdmin = user?.role === 'Admin'
+    const navigate = useNavigate()
+    const navToKosar = () => navigate('/kosar')
+    const navToAdmin = () => navigate('/adminpanel')
+    const navToFiokom = () => navigate('/fiokom')
+    const navToBejelentkezes = () => navigate('/bejelentkezes')
 
     return (
         <div className="container-fluid px-4">
@@ -16,23 +23,20 @@ export default function NavBar({ user, onLogout }) {
 
                     {isLoggedIn ? (
                         <>
-                            <Link to='/fiokom' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
-                                Fiókom
-                            </Link>
+                            <Gomb onClick={navToFiokom} className='px-3 py-1 text-decoration-none rounded text-dark fs-4' text="Fiókom">
+                            </Gomb>
 
-                            <Link to='/kosar' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
-                                Kosár
-                            </Link>
+                            <Gomb onClick={navToKosar} className='px-3 py-1 text-decoration-none rounded text-dark fs-4' text="Kosár">
+                            </Gomb>
 
-                            {isAdmin && <Link to='/adminpanel' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>
-                                Admin panel
-                            </Link>}
+                            {isAdmin && <Gomb onClick={navToAdmin} className='px-3 py-1 text-decoration-none rounded text-dark fs-4' text="Admin panel">
+                            </Gomb>}
 
                             <Gomb className='px-3 py-1 text-decoration-none rounded text-dark fs-4' onClick={onLogout} text='Kijelentkezés' />
                         </>
                     ) : (
                         <>
-                            <Link to='/bejelentkezes' className='px-3 py-1 text-decoration-none rounded text-dark fs-4' style={{ background: 'lightgray' }}>Bejelentkezés</Link>
+                            <Gomb onClick={navToBejelentkezes} className='px-3 py-1 text-decoration-none rounded text-dark fs-4' text="Bejelentkezés"></Gomb>
 
                         </>
                     )}

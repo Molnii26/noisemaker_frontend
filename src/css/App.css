@@ -2,6 +2,7 @@
   margin: 0px;
   text-align: center;
   height: 100%;
+  text-decoration: none;
 }
 
 body{
@@ -374,6 +375,7 @@ div.products-container{
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  justify-self: center;
 }
 
 .product-card {
@@ -431,17 +433,29 @@ div.kosar_egesz{
   justify-self: right;
   color: #1C1512;
   padding: 10px;
-  background-color: #ffffffe1;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 div.jobb-kosar{
   width: 70%;
+  background-color: #ffffffe1;
+  margin-right: 100px;
 }
 
 div.bal-kosar{
-  width: 30%;
+  width: 25%;
+  background-color: #ffffffe1;
+  margin-right: 10px;
+}
+
+button.fizetes-gomb{
+  width: 50%;
+  margin-top: 4px;
+  border-radius: 10px;
+  color: #1C1512;
+  padding: 2px;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 600px) {

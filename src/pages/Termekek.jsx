@@ -1,16 +1,12 @@
 import '../css/App.css'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { termekek } from '../api';
 
 function Termekek() {
     const productsData = [
-        { id: 1, name: "Yamaha F310", price: 55000, category: "húros", subcategory: "akusztikus" },
-        { id: 2, name: "Fender Stratocaster", price: 320000, category: "húros", subcategory: "elektromos" },
-        { id: 3, name: "Ibanez Bass", price: 180000, category: "húros", subcategory: "basszus" },
-        { id: 4, name: "Roland FP-10", price: 210000, category: "billentyűs", subcategory: "digitális zongora" },
-        { id: 5, name: "Pearl Roadshow", price: 180000, category: "ütős", subcategory: "dob" },
-        { id: 6, name: "Yamaha YFL-222", price: 160000, category: "fúvós", subcategory: "fuvola" }
+        
     ];
 
     const subcategories = {
@@ -24,12 +20,27 @@ function Termekek() {
     const [subcategory, setSubcategory] = useState("összes");
     const [sortType, setSortType] = useState("");
 
+    //----------------------------------------------------------------------
+    const [product, setProduct] = useState('')
+
+    useEffect(() => {
+        async function load() {
+            const data = await termekek()
+
+            if (data.error) {
+                return setErrorUser(data.error)
+            }
+            return setProduct(data)
+        }
+        load()
+    }, [])
 
     const handleCategoryChange = (value) => {
         setCategory(value);
         setSubcategory("összes"); // reset alkategória
     };
 
+    //--------------------------------------------------------------------------------------------
     const filteredProducts = productsData
         .filter(product =>
             (category === "összes" || product.category === category) &&
@@ -86,19 +97,20 @@ function Termekek() {
                 </div>
 
                 <div className="products-container">
-                        {filteredProducts.map(product => (
+                    {filteredProducts.map(product => (
                         <a href='/termek/:Product_Id' key={product.id} className="product-card">
-                            <h4>{product.name}</h4>
-                            <img className='product-img' src='../../images/piano.jpg'></img>
-                            <p>{product.price.toLocaleString()} Ft</p>
-                            <span>{product.category} - {product.subcategory}</span>
+                            <h4>{product.Product_Name}</h4>
+                            <img className='product-img' src={ProductIMG}></img>
+                            <p>{product.ProductPrice.toLocaleString()} Ft</p>
+                            <span>{product.category} - {product.Subcategory_Id.toLocaleString()}</span>
                         </a>
                     ))}
-                    
+
                 </div>
 
 
             </div>
+
             <Footer />
         </>
 
