@@ -49,7 +49,7 @@ export async function whoAmI() {
         const data = await res.json()
         return { error: data?.error }
     }
-
+    //console.log(await res.json());
     return await res.json()
 }
 
@@ -65,4 +65,21 @@ export async function logout() {
     }
 
     return await res.json()
+}
+
+export async function termekek(product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock){
+    const res = await fetch(`${BACKEND_URL}/getProducts`, {
+        method: 'GET',
+         credentials: 'include',
+        body: JSON.stringify({ product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock })
+    })
+
+    //console.log(res)
+
+    const data = await res.json()
+
+    if (!data.error) {
+        return data
+    }
+    return data
 }
