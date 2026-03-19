@@ -72,6 +72,7 @@ export default function Admin() {
                             <th>Név</th>
                             <th>Email</th>
                             <th>Műveletek</th>
+                            {/* adsads */}
                         </tr>
                     </thead>
 
