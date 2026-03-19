@@ -458,6 +458,19 @@ button.fizetes-gomb{
   margin-bottom: 5px;
 }
 
+div.adminpanel{
+  color: #ffffff;
+  justify-self: center;
+  align-self: center;
+}
+
+div.table-admin{
+  width: 80%;
+  justify-self: center;
+  align-self: center;
+  margin: 0 auto;
+}
+
 @media (max-width: 600px) {
 
   .header {
