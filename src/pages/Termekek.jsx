@@ -95,7 +95,7 @@ function Termekek() {
                     </select>
 
                 </div>
-
+                {/* dhjsajkau */}
                 <div className="products-container">
                     {filteredProducts.map(product => (
                         <a href='/termek/:Product_Id' key={product.id} className="product-card">
