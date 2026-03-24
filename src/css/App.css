@@ -462,13 +462,14 @@ div.adminpanel{
   color: #ffffff;
   justify-self: center;
   align-self: center;
+  gap: 100px;
 }
 
 div.table-admin{
-  width: 80%;
+  width: 100%;
   justify-self: center;
   align-self: center;
-  margin: 0 auto;
+  gap: 100px;
 }
 
 @media (max-width: 600px) {
