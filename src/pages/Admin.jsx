@@ -72,7 +72,6 @@ export default function Admin() {
                             <th>Név</th>
                             <th>Email</th>
                             <th>Műveletek</th>
-                            {/* adsads */}
                         </tr>
                     </thead>
 
@@ -81,7 +80,7 @@ export default function Admin() {
                             <UserInfo
                                 key={user.User_Id}
                                 user_id={user.User_Id}
-                                user={user.Username}
+                                username={user.Username}
                                 email={user.Email}
                                 onDelete={onDelete()}
                             />
@@ -115,9 +114,9 @@ export default function Admin() {
                                 order_status={order.Order_Status}
                                 date={order.Date}
                                 phoneNumber={order.PhoneNumber}
-                                postalCode={order.PostalCode}
+                                postalCode={order.Postal_Code}
                                 city={order.City}
-                                address={order.Address}
+                                address={order.StreetHousenumber}
                                 onDelete={onDelete()}
                             />
                         ))}

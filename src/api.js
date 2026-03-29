@@ -1,7 +1,8 @@
-const BACKEND_URL = '/users'
+const BACKEND_URL_USER = '/users'
+const BACKEND_URL_PRODUCTS = '/products'
 
 export async function regisztracio(username, email, psw){
-    const res = await fetch(`${BACKEND_URL}/register`, {
+    const res = await fetch(`${BACKEND_URL_USER}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -20,7 +21,7 @@ export async function regisztracio(username, email, psw){
 }
 
 export async function bejelentkezes(email, psw){
-    const res = await fetch(`${BACKEND_URL}/login`, {
+    const res = await fetch(`${BACKEND_URL_USER}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +41,7 @@ export async function bejelentkezes(email, psw){
 }
 
 export async function whoAmI() {
-    const res = await fetch(`${BACKEND_URL}/whoami`, {
+    const res = await fetch(`${BACKEND_URL_USER}/whoami`, {
         method: 'GET',
         credentials: 'include'
     })
@@ -54,7 +55,7 @@ export async function whoAmI() {
 }
 
 export async function logout() {
-    const res = await fetch(`${BACKEND_URL}/logout`, {
+    const res = await fetch(`${BACKEND_URL_USER}/logout`, {
         method: 'GET',
         credentials: 'include'
     })
@@ -68,13 +69,24 @@ export async function logout() {
 }
 
 export async function termekek(product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock){
-    const res = await fetch(`${BACKEND_URL}/getProducts`, {
+    const res = await fetch(`${BACKEND_URL_USER}/getProducts`, {
         method: 'GET',
          credentials: 'include',
         body: JSON.stringify({ product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock })
     })
 
     //console.log(res)
+
+    const data = await res.json()
+
+    if (!data.error) {
+        return data
+    }
+    return data
+}
+
+export async function getProducts() {
+    const res = await fetch(`${BACKEND_URL_PRODUCTS}/getAllProducts`)
 
     const data = await res.json()
 
