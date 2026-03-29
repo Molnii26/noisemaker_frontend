@@ -95,3 +95,25 @@ export async function getProducts() {
     }
     return data
 }
+
+export async function getCategoryAll() {
+    const res = await fetch(`${BACKEND_URL_PRODUCTS}/getCategoryAll`)
+
+    const data = await res.json()
+
+    if (!data.error) {
+        return data
+    }
+    return data
+}
+
+export async function getSubcategoryAll() {
+    const res = await fetch(`${BACKEND_URL_PRODUCTS}/getSubcategoryAll`)
+
+    const data = await res.json()
+
+    if (!data.error) {
+        return data
+    }
+    return data
+}

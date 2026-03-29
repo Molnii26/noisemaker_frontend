@@ -1,43 +1,24 @@
 import '../css/App.css'
-import kep1 from '../../images/piano-bckgrnd.jpg'
-import kep2 from '../../images/piano.jpg'
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "../../node_modules/bootstrap/dist/js/bootstrap.min.js"
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+import Video from "../../video/background_video.mp4"
 
 function Body() {
   return (
     <div className="body">
       <div className="container">
-        <div className="left-part">
-          <div id="carouselExampleIndicators" className="carousel-slide" data-bs-ride="carousel">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <img className="carousel-img" src={kep1} alt="First slide" />
-              </div>
-              <div className="carousel-item">
-                <img className="carousel-img" src={kep2} alt="Second slide" />
-              </div>
-              <div className="carousel-item">
-                <img className="carousel-img" src={kep1} alt="Third slide" />
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="fooldal">
 
-        {/* *************************************************************************************************************************************************** */}
+          <video id="background-video" autoplay loop muted>
+            <source src={Video} type="video/mp4"/>
+          </video>
 
-        <div className="right-part">
-
-          <navbar className="navbar-right">
-            <h1 className="navbar-cim">Hangszerek</h1>
-
-            <card>
-              <a href="/termekek">
-                <h2 style={{ textDecoration: "none"}}>TERMÉKEK</h2>
-              </a>
-            </card>
-          </navbar>
+          <card>
+            <a href="/termekek">
+              <h2 style={{ textDecoration: "none" }}>TERMÉKEK</h2>
+            </a>
+          </card>
         </div>
       </div>
     </div>

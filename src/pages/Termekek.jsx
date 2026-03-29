@@ -1,140 +1,8 @@
-// import '../css/App.css'
-// import Header from "../components/Header";
-// import Footer from '../components/Footer';
-// import { useState, useEffect } from 'react';
-
-// function Termekek() {
-
-//     const subcategories = {
-//         húros: ["akusztikus", "elektromos", "basszus"],
-//         billentyűs: ["digitális zongora", "szintetizátor"],
-//         ütős: ["dob"],
-//         fúvós: ["fuvola", "klarinét", "szaxofon"]
-//     };
-
-//     const subcategoryMap = {
-//         akusztikus: 1,
-//         elektromos: 2,
-//         basszus: 3,
-//         "digitális zongora": 4,
-//         szintetizátor: 5,
-//         dob: 6,
-//         fuvola: 7,
-//         klarinét: 8,
-//         szaxofon: 9
-//     };
-
-//     const [category, setCategory] = useState("összes");
-//     const [subcategory, setSubcategory] = useState("összes");
-//     const [sortType, setSortType] = useState("");
-//     const [productsData, setProductsData] = useState([]);
-
-//     useEffect(() => {
-//         fetch("http://127.0.0.1:3000/getAllProducts")
-//             .then(res => res.json())
-//             .then(data => {
-//                 console.log("API válasz:", data);
-//                 setProductsData(data);
-//             })
-//             .catch(err => console.error(err));
-//     }, []);
-
-//     const handleCategoryChange = (value) => {
-//         setCategory(value);
-//         setSubcategory("összes");
-//     };
-
-//     const filteredProducts = productsData.filter(product =>
-//             (category === "összes" || product.category === Category_Id) &&
-//             (subcategory === "összes" || product.Subcategory_Id == subcategoryMap[subcategory])
-//         )
-//         .sort((a, b) => {
-//             if (sortType === "price-asc") return a.ProductPrice - b.ProductPrice;
-//             if (sortType === "price-desc") return b.ProductPrice - a.ProductPrice;
-//             if (sortType === "name-asc") return a.Product_Name.localeCompare(b.Product_Name);
-//             if (sortType === "name-desc") return b.Product_Name.localeCompare(a.Product_Name);
-//             return 0;
-//         });
-
-//     return (
-//         <>
-//             <Header />
-
-//             <div className="container-termekek">
-//                 <div className="filter">
-
-//                     <h3>Kategória</h3>
-//                     <select onChange={(e) => handleCategoryChange(e.target.value)}>
-//                         <option value="összes">Összes</option>
-//                         <option value="húros">Húros</option>
-//                         <option value="billentyűs">Billentyűs</option>
-//                         <option value="ütős">Ütős</option>
-//                         <option value="fúvós">Fúvós</option>
-//                     </select>
-
-//                     {category !== "összes" && (
-//                         <>
-//                             <h3>Alkategória</h3>
-//                             <select onChange={(e) => setSubcategory(e.target.value)}>
-//                                 <option value="összes">Összes</option>
-//                                 {subcategories[category].map((sub, index) => (
-//                                     <option key={index} value={sub}>
-//                                         {sub}
-//                                     </option>
-//                                 ))}
-//                             </select>
-//                         </>
-//                     )}
-
-//                     <h3>Rendezés</h3>
-//                     <select onChange={(e) => setSortType(e.target.value)}>
-//                         <option value="">Nincs</option>
-//                         <option value="price-asc">Ár növekvő</option>
-//                         <option value="price-desc">Ár csökkenő</option>
-//                         <option value="name-asc">ABC (A-Z)</option>
-//                         <option value="name-desc">ABC (Z-A)</option>
-//                     </select>
-
-//                 </div>
-
-//                 <div className="products-container">
-//                     {filteredProducts.map(product => (
-//                         <a
-//                             href={`/getProduct/${product.Product_Id}`}
-//                             key={product.Product_Id}
-//                             className="product-card"
-//                         >
-//                             <h4>{product.Product_Name}</h4>
-
-//                             {/* <img
-//                                 className="product-img"
-//                                 src={product.ProductIMG}
-//                                 alt={product.Product_Name}
-//                             /> */}
-
-//                             <p>{product.ProductPrice.toLocaleString()} Ft</p>
-
-//                             <span>
-//                                 {product.Category_Id} - {product.Subcategory_Id}
-//                             </span>
-//                         </a>
-//                     ))}
-//                 </div>
-//             </div>
-
-//             <Footer />
-//         </>
-//     )
-
-// }
-
-// export default Termekek;
-
 import '../css/App.css'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
 import { useState, useEffect } from 'react';
-import { getProducts } from '../api';
+import { getCategoryAll, getProducts, getSubcategoryAll } from '../api';
 
 function Termekek() {
 
@@ -154,19 +22,19 @@ function Termekek() {
             }
         })();
 
-        // Kategóriák - JAVÍTOTT URL
-        /*
-        fetch("http://127.0.0.1:3000/categories/getCategoryAll")
-            .then(res => res.json())
-            .then(data => setCategoriesData(data))
-            .catch(err => console.error(err));
+        (async()=>{
+            const data = await getCategoryAll();
+            if(data.result){
+                setCategoriesData(data.result)
+            }
+        })();
 
-        // Alkategóriák - JAVÍTOTT URL
-        fetch("http://127.0.0.1:3000/categories/getSubcategoryAll")
-            .then(res => res.json())
-            .then(data => setSubcategoriesData(data))
-            .catch(err => console.error(err));
-            */
+        (async()=>{
+            const data = await getSubcategoryAll();
+            if(data.result){
+                setSubcategoriesData(data.result)
+            }
+        })();
     }, []);
 
     const handleCategoryChange = (value) => {
