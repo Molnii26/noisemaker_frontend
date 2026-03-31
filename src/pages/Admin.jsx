@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import UserInfo from "../components/UserInfo";
 import OrderInfo from "../components/OrderInfo";
 import '../css/App.css'
+import Footer from "../components/Footer";
 
 
 
@@ -124,6 +125,8 @@ export default function Admin() {
                     </tbody>
                 </table>
             </div>
+
+            <Footer/>
 
             {error && <div className="alert alert-danger text-center my-2">{error}</div>}
             {message && <div className="alert alert-success text-center my-2">{message}</div>}

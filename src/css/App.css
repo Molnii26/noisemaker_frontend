@@ -4,9 +4,10 @@
   height: 100%;
   text-decoration: none;
 }
-/* {
-  ize
-}*/
+
+body{
+  background-image: url('../../images/bckgrnd2.jpg');
+}
 
 #background-video {
   position: absolute;
@@ -23,33 +24,40 @@ div.fooldal{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  justify-self: center;
   height: 650px;
-
 }
 
-card{
+card.termekek-kartya{
   height: 100px;
-  border: #ffffff 1px solid;
+  border: #F5F5F7 1px solid;
   width: 240px;
   cursor: pointer;
   text-decoration: none;
-  border-radius: 10px; 
-  display: flex;
+  border-radius: 10px;
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-self: center;
   justify-self: center;
+  background-color: #1A1A1Db2;
+  color: #F5F5F7;
+  font-size: 40px;
 }
 
 div.filter{
   background: none;
+  color: #1A1A1D;
 }
 
-card:hover{
-  transition: all 0.02s ease-in;
-  color: #ffffff;
-  border: #ffffff 2px solid;
+card.termekek-kartya:hover{
+  transition: all 0.01 ease-in-out;
+  border: #F5F5F7 2px solid;
   text-decoration: none;
+  color: #1A1A1D;
+  background-color: #f5f5f7b6;
 }
 
 img{
@@ -77,10 +85,15 @@ img.product-img{
 
 h1{
   font-family: 'Bodoni', sans-serif;
+  color: #1A1A1D;
+}
+
+h1.cim-text{
+  color: #F5F5F7;
 }
 
 h1.navbar-cim{
-  color: #D4AF37;
+  color: #1A1A1D;
   font-size: 60px;
   font-family: 'Bodoni', sans-serif;
   align-self: center;
@@ -89,7 +102,7 @@ h1.navbar-cim{
 }
 
 h2{
-  color: #ffffff;
+  color: #F5F5F7;
   text-align: center;
   margin-top: 30px;
   font-size: 30px;
@@ -106,7 +119,7 @@ a{
   justify-content: space-between;
   display: flex;
   flex-direction: row;
-  background-color: #1c15124e;
+  background-color: #1A1A1Db2;
   /*
   position: sticky;
   top: 0;*/
@@ -139,13 +152,12 @@ a.cim{
 /*FOOTER*/
 
 .footer {
-  background-color: #1C1512; 
-  color: #D4AF37; 
+  background-color: #1A1A1D;
+  color: #D4AF37;
   padding-top: 60px;
   font-family: 'Poppins', sans-serif;
   position: static;
-  border: #1C1512 1px solid;
-  border-radius: 10px;
+  border: #1A1A1D 1px solid;
 }
 
 .footer-container {
@@ -184,7 +196,7 @@ a.cim{
   margin-bottom: 15px;
   font-size: 16px;
   letter-spacing: 1px;
-  color: #D4AF37;
+  color: #F5F5F7;
 }
 
 .footer-link {
@@ -195,8 +207,7 @@ a.cim{
 }
 
 .footer-link:hover {
-  color: #D4AF37;
-  transform: translateX(3px);
+  color: #F5F5F7;
 }
 
 .footer-social {
@@ -210,13 +221,13 @@ a.cim{
 }
 
 .footer-icon {
-  color: #ffffff;
+  color: #F5F5F7;
   font-size: 18px;
   transition: all 0.3s ease;
 }
 
 .footer-icon:hover {
-  color: #D4AF37;
+  color: #F5F5F7;
   transform: scale(1.1);
 }
 
@@ -230,21 +241,6 @@ a.cim{
 
 /*-------------------------------------------------------------------------*/
 
-
-.kereses{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  
-}
-
-.gomb-kereses{
-  text-align: center;
-  height: 50px;
-  background-color: #ffffff;
-}
 
 .gomb-kereses img{
   height: 40px;
@@ -282,38 +278,37 @@ label{
 
 .gombok{
   border-radius: 100px;
-  border: #1C1512 1px solid;
+  border: #1A1A1D 1px solid;
   margin-top: 10px;
   height: auto;
   width: auto;
-  background-color: #D4AF37;
+  background-color: #F5F5F7c5;
   font-weight: bold;
 }
 
 div.container-reg{
-  border: #1C1512 1px solid;
+  border: #1A1A1D 1px solid;
   border-radius: 50px;
   width: 200px;
-  color: #ffffff;
-  background-color: #1C1512;
+  color: #F5F5F7;
+  background-color: #1A1A1D;
 }
 
 div.container-log{
-  border: #1C1512 1px solid;
+  border: #1A1A1D 1px solid;
   border-radius: 50px;
   width: 200px;
-  color: #ffffff;
-  background-color: #1C1512;
+  color: #F5F5F7;
+  background-color: #1A1A1D;
 }
 
 h1.text-center{
-  color: #D4AF37;
-  font-size: 30px;
+  color: #F5F5F7;
+  font-size: 25px;
   font-family: 'Bodoni', sans-serif;
   align-self: center;
   justify-self: center;
   margin-bottom: 20px;
-  padding: 10px;
 }
 
 button.gombok{
@@ -372,7 +367,7 @@ div.products-container{
 }
 
 .product-card {
-  background-color: #3a2318;
+  background-color: #1a1a1db6;
   padding: 20px;
   border-radius: 10px;
   height: auto;
@@ -399,21 +394,11 @@ div.fiokom{
   gap: 10px;
   margin-top: 20px;
   margin-bottom: 60px;
-  background-color: #d4af3752;
+  background-color: #8f8f8f6b;
   align-self: right;
   justify-content: right;
   justify-self: right;
   align-items: right;
-}
-
-span.carousel-control-next-icon,
-span.carousel-control-prev-icon,
-span.sr-only {
-  display: none;
-}
-
-div.carousel-slide{
-  margin-right: 150px;
 }
 
 div.container-termekek{
@@ -421,7 +406,6 @@ div.container-termekek{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff7f;
 }
 
 div.kosar_egesz{
@@ -430,7 +414,7 @@ div.kosar_egesz{
   width: 100%;
   justify-content: center;
   justify-self: right;
-  color: #1C1512;
+  color: #1A1A1D;
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -438,13 +422,13 @@ div.kosar_egesz{
 
 div.jobb-kosar{
   width: 70%;
-  background-color: #ffffffe1;
+  background-color: #F5F5F7e1;
   margin-right: 100px;
 }
 
 div.bal-kosar{
   width: 25%;
-  background-color: #ffffffe1;
+  background-color: #F5F5F7e1;
   margin-right: 10px;
 }
 
@@ -452,16 +436,18 @@ button.fizetes-gomb{
   width: 50%;
   margin-top: 4px;
   border-radius: 10px;
-  color: #1C1512;
+  color: #1A1A1D;
   padding: 2px;
   margin-bottom: 5px;
 }
 
 div.adminpanel{
-  color: #ffffff;
+  color: #1A1A1D;
   justify-self: center;
   align-self: center;
   gap: 100px;
+  background-color: #f5f5f7b6;
+  margin-bottom: 200px;
 }
 
 div.table-admin{
@@ -472,10 +458,61 @@ div.table-admin{
 }
 
 h1.fiokom-cim{
-  color: #D4AF37;
+  color: #1A1A1D;
+  background-color: #F5F5F7;
   font-size: 30px;
   margin-top: 10px;
 }
+
+h3.kategoria-cim{
+  color: #1A1A1D;
+}
+
+div#fadeInUp-animation.udvozlo{
+  color: #F5F5F7;
+  font-weight: bold;
+  font-size: 80px;
+  margin-top: 50px;
+}
+
+h1.footer-logo{
+  color: #F5F5F7;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+#fadeInUp-animation {
+  animation: 1.5s fadeInUp;
+}
+
+#fadeInLeft-animation{
+  animation: 1s fadeInLeft;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+
 
 @media (max-width: 600px) {
 

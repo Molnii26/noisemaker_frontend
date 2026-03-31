@@ -66,7 +66,7 @@ function Termekek() {
             <div className="container-termekek">
                 <div className="filter">
 
-                    <h3>Kategória</h3>
+                    <h3 className='kategoria-cim'>Kategória</h3>
                     <select onChange={(e) => handleCategoryChange(e.target.value)}>
                         <option value="összes">Összes</option>
                         {categoriesData.map((cat) => (
@@ -79,7 +79,7 @@ function Termekek() {
                     {/* Alkategória csak akkor jelenik meg, ha van találat */}
                     {category !== "összes" && filteredSubcategories.length > 0 && (
                         <>
-                            <h3>Alkategória</h3>
+                            <h3 className='kategoria-cim'>Alkategória</h3>
                             <select onChange={(e) => setSubcategory(e.target.value)}>
                                 <option value="összes">Összes</option>
                                 {filteredSubcategories.map((sub) => (
@@ -91,7 +91,7 @@ function Termekek() {
                         </>
                     )}
 
-                    <h3>Rendezés</h3>
+                    <h3 className='kategoria-cim'>Rendezés</h3>
                     <select onChange={(e) => setSortType(e.target.value)}>
                         <option value="">Nincs</option>
                         <option value="price-asc">Ár növekvő</option>
@@ -102,7 +102,7 @@ function Termekek() {
 
                 </div>
 
-                <div className="products-container">
+                <div className="products-container" id='fadeInLeft-animation'>
                     {filteredProducts.length === 0 ? (
                         <p>Nincs találat.</p>
                     ) : (

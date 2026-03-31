@@ -1,5 +1,6 @@
 const BACKEND_URL_USER = '/users'
 const BACKEND_URL_PRODUCTS = '/products'
+const BACKEND_URL_CATEGORIES = '/categories'
 
 export async function regisztracio(username, email, psw){
     const res = await fetch(`${BACKEND_URL_USER}/register`, {
@@ -97,7 +98,7 @@ export async function getProducts() {
 }
 
 export async function getCategoryAll() {
-    const res = await fetch(`${BACKEND_URL_PRODUCTS}/getCategoryAll`)
+    const res = await fetch(`${BACKEND_URL_CATEGORIES}/getCategoryAll`)
 
     const data = await res.json()
 
@@ -108,7 +109,7 @@ export async function getCategoryAll() {
 }
 
 export async function getSubcategoryAll() {
-    const res = await fetch(`${BACKEND_URL_PRODUCTS}/getSubcategoryAll`)
+    const res = await fetch(`${BACKEND_URL_CATEGORIES}/getSubcategoryAll`)
 
     const data = await res.json()
 
