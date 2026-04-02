@@ -31,13 +31,13 @@ function Fiokom() {
             <div className="fiokom">
                 <img src={profilePic}/>
                 <h1 className='fiokom-cim'>Felhasználónév</h1>
-                <p className='text-light'>{user.Username}</p>
+                <p className='text-dark bg-light'>{user.Username}</p>
 
                 <h1 className='fiokom-cim'>Email</h1>
-                <p className='text-light'>{user.Email}</p>
+                <p className='text-dark bg-light'>{user.Email}</p>
 
                 <h1 className='fiokom-cim'>Szerepe</h1>
-                <p className='text-light'>{user.User_Role}</p>
+                <p className='text-dark bg-light'>{user.User_Role}</p>
             </div>
 
             <Footer />
