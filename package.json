@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@mui/material": "^7.3.8",
+    "axios": "^1.14.0",
     "bootstrap": "^5.3.8",
+    "fs": "^0.0.1-security",
     "lucide-react": "^0.577.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

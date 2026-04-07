@@ -118,3 +118,51 @@ export async function getSubcategoryAll() {
     }
     return data
 }
+
+// összes felhasználó lekérése
+export async function getAllUsers() {
+    const res = await fetch(`${BACKEND_URL_USER}/getAllUsers`, {
+        method: 'GET',
+        credentials: 'include'
+    })
+
+    if (!res.ok) {
+        const data = await res.json()
+        return { error: data?.error}
+    }
+
+    return await res.json()
+}
+
+// egy felhasználó adatainak módosítása
+export async function userEdit(user_id, username, email, role) {
+    const res = await fetch(`${BACKEND_URL_USER}/userModifyInAdmin/${user_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, role }),
+        credentials: 'include'
+    })
+
+    if (!res.ok) {
+        const data = await res.json()
+        return { error: data?.error }
+    }
+
+    return await res.json()
+}
+
+export async function deleteUser(user_id) {
+    const res = await fetch(`${BACKEND_URL_USER}/deleteUser/${user_id}`,{
+        method: 'DELETE',
+        credentials: 'include'
+    })
+
+    if (!res.ok) {
+        const data = await res.json()
+        return { error: data?.error }
+    }
+
+    return await res.json()
+}

@@ -1,9 +1,9 @@
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
-import UserInfo from "../components/UserInfo";
-import OrderInfo from "../components/OrderInfo";
 import '../css/App.css'
 import Footer from "../components/Footer";
+import Table from "../components/Table";
+import { userEdit } from "../api";
 
 
 
@@ -12,8 +12,18 @@ export default function Admin() {
     const [orders, setOrders] = useState([])
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
+    const [selectedUser, setSelectedUser] = useState(null)
+    const [showModal, setShowModal] = useState(false)
+
+    const [allUsers, setAllUsers] = useState(null)
+    const [errorAllUsers, setErrorAllUsers] = useState('')
+
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [role, setRole] = useState('')
+
     console.log(users);
-    
+
     useEffect(() => {
         fetch("http://127.0.0.1:3000/users/getAllUsers")
             .then(res => res.json())
@@ -41,92 +51,94 @@ export default function Admin() {
             setError('Nem sikerült kapcsolódni a backendhez.')
         }
     }
-    
-    async function onDelete(id) {
-        setError('')
-        setMessage('')
 
-        try {
-            await deleteUser(id)
-            setUsers(users.filter(user => user.User_Id !== id))
-            setMessage('Sikeres törlés!')
-        } catch (err) {
-            console.log(err);
-            setError('Hiba történt a törlés során.')
+    async function onDelete(user) {
+        setErrorAllUsers('')
+        setSelectedUser(user)
+
+        const confirmDelete = window.confirm(`Biztosan törölni akarod a ${user.username} felhasználót?`)
+
+        if (!confirmDelete) {
+            return
         }
+
+        const data = await deleteUser(user.user_id)
+
+        if (data.error) {
+            setErrorAllUsers(data.error)
+            return alert(errorAllUsers)
+        }
+
+        return alert('Sikeres módosítás')
     }
 
-    // async function onModify(id) {
+    async function onModify(user) {
+        setSelectedUser(user)
+        setShowModal(true)
+    }
 
-    // }
+    async function editUser(user_id) {
+        setErrorAllUsers('')
+
+        const data = await userEdit(user_id, username, email, role)
+
+        if (data.error) {
+            setErrorAllUsers(data.error)
+            return alert(errorAllUsers)
+        }
+
+        return alert('Sikeres módosítás')
+    }
+
 
     return (
         <>
             <Header />
+            <Table users={users} onDelete={onDelete} onModify={onModify} />
 
-            <div className="adminpanel">
-                <h2>Felhasználók</h2>
-                <table className="table-admin">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Név</th>
-                            <th>Email</th>
-                            <th>Műveletek</th>
-                        </tr>
-                    </thead>
+            {showModal && selectedUser && (
+                <div className='modal d-block' tabIndex='-1'>
+                    <div className="modal-dialog">
+                        <div className="modal-content p-3">
+                            <h5>Szerkesztés</h5>
 
-                    <tbody>
-                        {users.map(user => (
-                            <UserInfo
-                                key={user.User_Id}
-                                user_id={user.User_Id}
-                                username={user.Username}
-                                email={user.Email}
-                                onDelete={onDelete()}
+                            <label className="form-label fw-bold">Username: </label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                defaultValue={selectedUser.username}
+                                placeholder='John Doe'
+                                onChange={(e) => setUsername(e.target.value)}
                             />
-                        ))}
 
-                    </tbody>
-                </table>
-
-                <h2>Rendelések</h2>
-                <table className="table-admin">
-                    <thead>
-                        <tr>
-                            <th>Rendelés ID</th>
-                            <th>ID</th>
-                            <th>Rendelés Státusz</th>
-                            <th>Dátum</th>
-                            <th>Telefonszám</th>
-                            <th>Irányítószám</th>
-                            <th>Város</th>
-                            <th>Cím</th>
-                            <th>Műveletek</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {orders.map(order => (
-                            <OrderInfo
-                                key={order.User_Id}
-                                id={order.User_Id}
-                                order_id={order.Order_Id}
-                                order_status={order.Order_Status}
-                                date={order.Date}
-                                phoneNumber={order.PhoneNumber}
-                                postalCode={order.Postal_Code}
-                                city={order.City}
-                                address={order.StreetHousenumber}
-                                onDelete={onDelete()}
+                            <label className="form-label fw-bold">Email: </label>
+                            <input
+                                type="email"
+                                className='form-control'
+                                defaultValue={selectedUser.email}
+                                placeholder='example@example.com'
+                                onChange={(e) => setEmail(e.target.value)}
                             />
-                        ))}
 
-                    </tbody>
-                </table>
-            </div>
+                            <label className="form-label fw-bold">Role: </label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                defaultValue={selectedUser.role}
+                                placeholder='admin/user'
+                                onChange={(e) => setRole(e.target.value)}
+                            />
+                            <div className="d-flex justify-content-between">
+                                <button type='button' className='btn btn-secondary' onClick={() => setShowModal(false)}>Bezárás</button>
 
-            <Footer/>
+                                <button type='button' className='btn btn-primary' onClick={() => editUser(selectedUser.user_id)}>Módosít</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <Footer />
 
             {error && <div className="alert alert-danger text-center my-2">{error}</div>}
             {message && <div className="alert alert-success text-center my-2">{message}</div>}
