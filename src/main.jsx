@@ -22,7 +22,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/kosar" element={<Kosar />} />
         <Route path="/termekek" element={<Termekek />} />
         <Route path="/fiokom" element={<Fiokom />} />
-        <Route path="/termek/:id" element={<Termek />} />
+        <Route path="/getProduct/:id" element={<Termek />} />
         <Route path="/adminpanel" element={<Admin />} />
       </Routes>
     </BrowserRouter>

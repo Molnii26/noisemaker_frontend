@@ -3,6 +3,9 @@ import '../css/App.css'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
 import { getProducts } from '../api';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 
 function Termek() {
     const [productsData, setProductsData] = useState([]);
@@ -11,23 +14,32 @@ function Termek() {
         // Termékek
         (async () => {
             const data = await getProducts();
-            if (data.result) {
-                setProductsData(data.result)
-            }
+                setProductsData(data)
         })();
     }, []);
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        (async () => {
+            const data = await getProducts();
+            setProductsData(data);
+        })();
+    }, []);
+
+    const product = productsData.find(p => p.Product_Id == id);
 
     return (
         <>
             <Header />
             <div className='termek-ablak'>
                 <div className='termek-kep'>
-                    <img src={productsData[0]?.ProductImage} alt={productsData[0]?.ProductName} />
+                    <img src={product?.ProductIMG} alt={product?.Product_Name} />
                 </div>
                 <div className='termek-leiras'>
-                    <h2>{productsData[0]?.Product_Name}</h2>
-                    <p>{productsData[0]?.ProductDescription}</p>
-                    <p>Ár: {productsData[0]?.ProductPrice} Ft</p>
+                    <h2>{product?.Product_Name}</h2>
+                    <p>{product?.ProductDescription}</p>
+                    <p>Ár: {product?.ProductPrice} Ft</p>
                 </div>
             </div>
             <Footer />

@@ -10,52 +10,51 @@ function Termekek() {
     const [subcategory, setSubcategory] = useState("összes");
     const [sortType, setSortType] = useState("");
     const [productsData, setProductsData] = useState([]);
-    const [categoriesData, setCategoriesData] = useState([]);       
-    const [subcategoriesData, setSubcategoriesData] = useState([]); 
+    const [categoriesData, setCategoriesData] = useState([]);
+    const [subcategoriesData, setSubcategoriesData] = useState([]);
 
     useEffect(() => {
         // Termékek
-        (async()=>{
+        (async () => {
             const data = await getProducts();
-            if(data.result){
-                setProductsData(data.result)
-            }
+            setProductsData(data)
+
         })();
 
-        (async()=>{
+        (async () => {
             const data = await getCategoryAll();
-            if(data.result){
-                setCategoriesData(data.result)
-            }
+            setCategoriesData(data)
         })();
 
-        (async()=>{
+        (async () => {
             const data = await getSubcategoryAll();
-            if(data.result){
-                setSubcategoriesData(data.result)
-            }
+            setSubcategoriesData(data)
         })();
     }, []);
 
     const handleCategoryChange = (value) => {
-        setCategory(value);
+        setCategory(value === "összes" ? "összes" : Number(value));
         setSubcategory("összes"); // reset alkategória
     };
 
     // Csak az aktuális főkategóriához tartozó alkategóriák
     const filteredSubcategories = subcategoriesData.filter(
-        sub => category === "összes" || sub.CategoryId == category
+        sub => category === "összes" || Number(sub.Category_Id) === Number(category)
     );
+
+
     console.log(productsData)
+
+    
     const filteredProducts = productsData.filter(product =>
-            (category === "összes" || product.CategoryId == category) &&
-            (subcategory === "összes" || product.SubcategoryId == subcategory)
-        )
+        (category === "összes" || Number(product.Category_Id) === Number(category)) &&
+        (subcategory === "összes" || Number(product.Subcategory_Id) === Number(subcategory))
+    )
         .sort((a, b) => {
             if (sortType === "price-asc") return a.ProductPrice - b.ProductPrice;
             if (sortType === "price-desc") return b.ProductPrice - a.ProductPrice;
-            if (sortType === "name-asc") return a.ProductName.localeCompare(b.ProductName);
-            if (sortType === "name-desc") return b.ProductName.localeCompare(a.ProductName);
+            if (sortType === "name-asc") return a.Product_Name.localeCompare(b.Product_Name);
+            if (sortType === "name-desc") return b.Product_Name.localeCompare(a.Product_Name);
             return 0;
         });
 
@@ -67,7 +66,7 @@ function Termekek() {
                 <div className="filter">
 
                     <h3 className='kategoria-cim'>Kategória</h3>
-                    <select onChange={(e) => handleCategoryChange(e.target.value)}>
+                    <select onChange={(e) => setCategory(e.target.value)}>
                         <option value="összes">Összes</option>
                         {categoriesData.map((cat) => (
                             <option key={cat.Category_Id} value={cat.Category_Id}>
@@ -80,11 +79,13 @@ function Termekek() {
                     {category !== "összes" && filteredSubcategories.length > 0 && (
                         <>
                             <h3 className='kategoria-cim'>Alkategória</h3>
-                            <select onChange={(e) => setSubcategory(e.target.value)}>
+                            <select onChange={(e) => setSubcategory(
+                                e.target.value === "összes" ? "összes" : Number(e.target.value)
+                            )}>
                                 <option value="összes">Összes</option>
                                 {filteredSubcategories.map((sub) => (
                                     <option key={sub.Subcategory_Id} value={sub.Subcategory_Id}>
-                                        {sub.SubcategoryName}
+                                        {sub.Subcategory_Name}
                                     </option>
                                 ))}
                             </select>
@@ -123,7 +124,7 @@ function Termekek() {
                         ))
                     )}
                 </div>
-            </div>
+            </div >
 
             <Footer />
         </>
