@@ -11,8 +11,8 @@ export default function OrderInfo({ order_id, id, order_status, date, phoneNumbe
             <td>{address}</td>
 
             <td>
-                <button className="btn btn-sm btn-primary me-2" onClick={onModify}>Szerkesztés</button>
-                <button className="btn btn-sm btn-danger" onClick={() => onDelete(id)}>Törlés</button>
+                <button className="btn btn-sm btn-primary me-2" onClick={() => onModify(order_id)}>Szerkesztés</button>
+                <button className="btn btn-sm btn-danger" onClick={() => onDelete(order_id)}>Törlés</button>
              </td>
         </tr>
     )

@@ -1,6 +1,6 @@
 import UserInfo from "./UserInfo";
 
-export default function Table({ users, onModify, onDelete }) {
+export default function Table({ users, orders, onModify, onDelete }) {
     return (
         <div className="adminpanel">
             <h2>Felhasználók</h2>
@@ -21,8 +21,8 @@ export default function Table({ users, onModify, onDelete }) {
                             user_id={user.User_Id}
                             username={user.Username}
                             email={user.Email}
-                            onModify={onModify(user)}
-                            onDelete={onDelete(user)}
+                            onModify={() => onModify(user)}
+                            onDelete={() => onDelete(user)}
                         />
                     ))}
 
@@ -57,12 +57,13 @@ export default function Table({ users, onModify, onDelete }) {
                             postalCode={order.Postal_Code}
                             city={order.City}
                             address={order.StreetHousenumber}
-                            onDelete={onDelete()}
+                            onModify={() => onModify(order)}
+                            onDelete={() => onDelete(order)}
                         />
                     ))}
 
                 </tbody>
-            </table> */}
+            </table>  */}
         </div>
     )
 }
