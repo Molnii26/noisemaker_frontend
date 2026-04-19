@@ -516,6 +516,35 @@ div.termek-leiras{
   background-color: #000000b2;
 }
 
+/* fgszfhuuzgsfhjfghuijnfshufjghsufabjsghuf */
+
+.kosar-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.kosar-item-kep {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.kosar-item-info {
+    flex: 1;
+}
+
+.kosar-remove-gomb {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 1.1rem;
+}
+
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
 
 @keyframes fadeInUp {
