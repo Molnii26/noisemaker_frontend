@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import '../css/App.css'
 import Footer from "../components/Footer";
 import Table from "../components/Table";
-import { userEdit } from "../api";
+import { userEdit, deleteUser } from "../api";
+console.log(deleteUser);
 
 
 
@@ -18,9 +19,9 @@ export default function Admin() {
     const [allUsers, setAllUsers] = useState(null)
     const [errorAllUsers, setErrorAllUsers] = useState('')
 
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [role, setRole] = useState('')
+    const [Username, setUsername] = useState('')
+    const [Email, setEmail] = useState('')
+    const [User_Role, setRole] = useState('')
 
     console.log(users);
 
@@ -38,49 +39,40 @@ export default function Admin() {
             .catch(err => console.error(err))
     }, [])
 
-    async function deleteUser(id) {
-        try {
-            const data = await deleteUser(id)
-            if (!data.ok) {
-                return setError(data.error)
-            }
-            else {
-                return setMessage(data.message)
-            }
-        } catch (err) {
-            setError('Nem sikerült kapcsolódni a backendhez.')
-        }
-    }
 
     async function onDelete(user) {
-        setErrorAllUsers('')
-        setSelectedUser(user)
 
-        const confirmDelete = window.confirm(`Biztosan törölni akarod a ${user.username} felhasználót?`)
+
+        const confirmDelete = window.confirm(`Biztosan törölni akarod a ${user.Username} felhasználót?`)
 
         if (!confirmDelete) {
             return
         }
-
-        const data = await deleteUser(user.user_id)
+        const data = await deleteUser(user.User_Id)
 
         if (data.error) {
-            setErrorAllUsers(data.error)
             return alert(errorAllUsers)
         }
 
-        return alert('Sikeres módosítás')
+        setUsers(prev => prev.filter(u => u.User_Id !== user.User_Id))
+
+        return alert('Sikeres törlés')
     }
 
     async function onModify(user) {
         setSelectedUser(user)
+
+        setUsername(user.Username)
+        setEmail(user.Email)
+        setRole(user.User_Role)
+
         setShowModal(true)
     }
 
-    async function editUser(user_id) {
+    async function editUser(User_Id) {
         setErrorAllUsers('')
 
-        const data = await userEdit(user_id, username, email, role)
+        const data = await userEdit(User_Id, Username, Email, User_Role)
 
         if (data.error) {
             setErrorAllUsers(data.error)
@@ -106,32 +98,32 @@ export default function Admin() {
                             <input
                                 type="text"
                                 className='form-control'
-                                defaultValue={selectedUser.username}
+                                value={selectedUser.Username}
                                 placeholder='John Doe'
                                 onChange={(e) => setUsername(e.target.value)}
-                            />
-
-                            <label className="form-label fw-bold">Email: </label>
-                            <input
-                                type="email"
-                                className='form-control'
-                                defaultValue={selectedUser.email}
-                                placeholder='example@example.com'
-                                onChange={(e) => setEmail(e.target.value)}
                             />
 
                             <label className="form-label fw-bold">Role: </label>
                             <input
                                 type="text"
                                 className='form-control'
-                                defaultValue={selectedUser.role}
+                                value={selectedUser.User_Role}
                                 placeholder='admin/user'
                                 onChange={(e) => setRole(e.target.value)}
+                            />
+
+                            <label className="form-label fw-bold">Email: </label>
+                            <input
+                                type="email"
+                                className='form-control'
+                                value={selectedUser.Email}
+                                placeholder='example@example.com'
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <div className="d-flex justify-content-between">
                                 <button type='button' className='btn btn-secondary' onClick={() => setShowModal(false)}>Bezárás</button>
 
-                                <button type='button' className='btn btn-primary' onClick={() => editUser(selectedUser.user_id)}>Módosít</button>
+                                <button type='button' className='btn btn-primary' onClick={() => editUser(selectedUser.User_Id)}>Módosít</button>
                             </div>
                         </div>
                     </div>

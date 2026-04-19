@@ -27,6 +27,7 @@ div.fooldal{
   align-self: center;
   justify-self: center;
   height: 430px;
+  width: 100%;
 }
 
 card.termekek-kartya{
@@ -37,7 +38,7 @@ card.termekek-kartya{
   text-decoration: none;
   border-radius: 10px;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   align-self: center;
@@ -398,10 +399,10 @@ div.fiokom{
   margin-top: 20px;
   margin-bottom: 60px;
   background-color: #8f8f8f6b;
-  align-self: right;
-  justify-content: right;
-  justify-self: right;
-  align-items: right;
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
 }
 
 div.container-termekek{

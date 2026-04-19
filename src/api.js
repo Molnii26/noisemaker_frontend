@@ -69,23 +69,6 @@ export async function logout() {
     return await res.json()
 }
 
-export async function termekek(product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock){
-    const res = await fetch(`${BACKEND_URL_USER}/getProducts`, {
-        method: 'GET',
-         credentials: 'include',
-        body: JSON.stringify({ product_id, product_name, product_description, product_price, product_img, category_id, subcategory_id, stock })
-    })
-
-    //console.log(res)
-
-    const data = await res.json()
-
-    if (!data.error) {
-        return data
-    }
-    return data
-}
-
 export async function getProducts() {
     const res = await fetch(`${BACKEND_URL_PRODUCTS}/getAllProducts`)
 
@@ -135,13 +118,13 @@ export async function getAllUsers() {
 }
 
 // egy felhasználó adatainak módosítása
-export async function userEdit(user_id, username, email, role) {
-    const res = await fetch(`${BACKEND_URL_USER}/userModifyInAdmin/${user_id}`, {
+export async function userEdit(User_Id, username, email, User_Role) {
+    const res = await fetch(`${BACKEND_URL_USER}/userModifyInAdmin/${User_Id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, email, role }),
+        body: JSON.stringify({ username, email, User_Role }),
         credentials: 'include'
     })
 
@@ -153,8 +136,8 @@ export async function userEdit(user_id, username, email, role) {
     return await res.json()
 }
 
-export async function deleteUser(user_id) {
-    const res = await fetch(`${BACKEND_URL_USER}/deleteUser/${user_id}`,{
+export async function deleteUser(User_Id) {
+    const res = await fetch(`${BACKEND_URL_USER}/deleteUser/${User_Id}`,{
         method: 'DELETE',
         credentials: 'include'
     })
