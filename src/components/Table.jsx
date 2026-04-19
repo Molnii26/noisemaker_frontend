@@ -1,6 +1,9 @@
+import Gomb from "./Gomb";
+import OrderInfo from "./OrderInfo";
+import ProductInfo from "./ProductInfo";
 import UserInfo from "./UserInfo";
 
-export default function Table({ users, orders, onModify, onDelete }) {
+export default function Table({ users, orders, products, onModify, onDelete }) {
     return (
         <div className="adminpanel">
             <h2>Felhasználók</h2>
@@ -29,7 +32,9 @@ export default function Table({ users, orders, onModify, onDelete }) {
                 </tbody>
             </table>
 
-            {/* <h2>Rendelések</h2>
+            {/* -------------------------- */}
+
+            <h2>Rendelések</h2>
             <table className="table-admin">
                 <thead>
                     <tr>
@@ -46,10 +51,10 @@ export default function Table({ users, orders, onModify, onDelete }) {
                 </thead>
 
                 <tbody>
-                    {orders.map(order => (
+                    {orders?.map(order => (
                         <OrderInfo
-                            key={order.User_Id}
-                            id={order.User_Id}
+                            key={order.Order_Id}
+                            user_id={order.User_Id}
                             order_id={order.Order_Id}
                             order_status={order.Order_Status}
                             date={order.Date}
@@ -63,7 +68,41 @@ export default function Table({ users, orders, onModify, onDelete }) {
                     ))}
 
                 </tbody>
-            </table>  */}
+            </table>
+
+            {/* -------------------------- */}
+
+            <h2>Termékek</h2>
+            <table className="table-admin">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Név</th>
+                        <th>Leírás</th>
+                        <th>Ár</th>
+                        <th>Készlet</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {products?.map(product => (
+                        <ProductInfo
+                            key={product.Product_Id}
+                            product_id={product.Product_Id}
+                            product_name={product.Product_Name}
+                            description={product.ProductDescription}
+                            product_price={`${product.ProductPrice} Ft`}
+                            stock={product.Stock}
+                            onModify={() => onModify(product)}
+                            onDelete={() => onDelete(product)}
+                        />
+                    ))}
+
+                </tbody>
+            </table>
+            <Gomb onClick='' className='px-3 py-1 text-decoration-none rounded text-dark fs-4 w-100' text="Termék hozzáadása"></Gomb>
+
         </div>
     )
 }

@@ -11,6 +11,7 @@ console.log(deleteUser);
 export default function Admin() {
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
+    const [products, setProducts] = useState([])
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [selectedUser, setSelectedUser] = useState(null)
@@ -22,6 +23,12 @@ export default function Admin() {
     const [Username, setUsername] = useState('')
     const [Email, setEmail] = useState('')
     const [User_Role, setRole] = useState('')
+
+    const [Product_Id, setProductId] = useState('')
+    const [Product_Name, setProductName] = useState('')
+    const [ProductPrice, setProductPrice] = useState('')
+    const [ProductDescription, setProductDescription] = useState('')
+    const [Stock, setStock] = useState('')
 
     console.log(users);
 
@@ -35,29 +42,67 @@ export default function Admin() {
     useEffect(() => {
         fetch("http://127.0.0.1:3000/orders/allOrders")
             .then(res => res.json())
-            .then(data => setOrders(data))
+            .then(data => {
+                console.log("orders:", data) // ← nézd meg mi jön
+                setOrders(Array.isArray(data) ? data : data.orders ?? [])
+            })
+            .catch(err => console.error(err))
+    }, [])
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:3000/products/getAllProducts")
+            .then(res => res.json())
+            .then(data => {
+                console.log("products:", data) // ← nézd meg mi jön
+                setProducts(Array.isArray(data) ? data : data.products ?? [])
+            })
             .catch(err => console.error(err))
     }, [])
 
 
-    async function onDelete(user) {
+    async function onDelete(item) {
+    if (item.Product_Id !== undefined) {
 
+        const confirmDelete = window.confirm(`Biztosan törölni akarod a "${item.Product_Name}" terméket?`)
+        if (!confirmDelete) return
 
-        const confirmDelete = window.confirm(`Biztosan törölni akarod a ${user.Username} felhasználót?`)
+        const res = await fetch(`http://127.0.0.1:3000/products/deleteProduct/${item.Product_Id}`, {
+            method: 'DELETE'
+        })
+        const data = await res.json()
 
-        if (!confirmDelete) {
-            return
-        }
-        const data = await deleteUser(user.User_Id)
+        if (data.error) return alert(data.error)
 
-        if (data.error) {
-            return alert(errorAllUsers)
-        }
-
-        setUsers(prev => prev.filter(u => u.User_Id !== user.User_Id))
-
-        return alert('Sikeres törlés')
+        setProducts(prev => prev.filter(p => p.Product_Id !== item.Product_Id))
+        return alert('Termék sikeresen törölve')
     }
+
+    if (item.Order_Id !== undefined) {
+        // Rendelés törlése
+        const confirmDelete = window.confirm(`Biztosan törölni akarod a ${item.Order_Id} számú rendelést?`)
+        if (!confirmDelete) return
+
+        const res = await fetch(`http://127.0.0.1:3000/orders/deleteOrder/${item.Order_Id}`, {
+            method: 'DELETE'
+        })
+        const data = await res.json()
+
+        if (data.error) return alert(data.error)
+
+        setOrders(prev => prev.filter(o => o.Order_Id !== item.Order_Id))
+        return alert('Rendelés sikeresen törölve')
+    }
+
+    // Felhasználó törlése
+    const confirmDelete = window.confirm(`Biztosan törölni akarod a ${item.Username} felhasználót?`)
+    if (!confirmDelete) return
+
+    const data = await deleteUser(item.User_Id)
+    if (data.error) return alert(data.error)
+
+    setUsers(prev => prev.filter(u => u.User_Id !== item.User_Id))
+    return alert('Felhasználó sikeresen törölve')
+}
 
     async function onModify(user) {
         setSelectedUser(user)
@@ -65,6 +110,28 @@ export default function Admin() {
         setUsername(user.Username)
         setEmail(user.Email)
         setRole(user.User_Role)
+
+        setShowModal(true)
+    }
+
+    async function onModifyOrder(order) {
+        setSelectedUser(order)
+
+        setUsername(order.Username)
+        setEmail(order.Email)
+        setRole(order.User_Role)
+
+        setShowModal(true)
+    }
+
+    async function onModifyProduct(product) {
+        setSelectedUser(product)
+
+        setProductId(product.Product_Id)
+        setProductName(product.Product_Name)
+        setProductPrice(product.ProductPrice)
+        setProductDescription(product.ProductDescription)
+        setStock(product.Stock)
 
         setShowModal(true)
     }
@@ -86,7 +153,7 @@ export default function Admin() {
     return (
         <>
             <Header />
-            <Table users={users} onDelete={onDelete} onModify={onModify} />
+            <Table users={users} orders={orders} products={products} onDelete={onDelete} onModify={onModify} />
 
             {showModal && selectedUser && (
                 <div className='modal d-block' tabIndex='-1'>
