@@ -23,6 +23,10 @@ export default function Kosar() {
     };
 
     const sikeresVasarlas = () => {
+        if (kosarItems.length === 0) {
+            alert("A kosár üres");
+            return;
+        }
         alert("Sikeres vásárlás");
         localStorage.removeItem('kosar');
         setKosarItems([]);
