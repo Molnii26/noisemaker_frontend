@@ -3,7 +3,7 @@ import OrderInfo from "./OrderInfo";
 import ProductInfo from "./ProductInfo";
 import UserInfo from "./UserInfo";
 
-export default function Table({ users, orders, products, onModify, onDelete }) {
+export default function Table({ users, orders, products, onModify, onModifyOrder, onModifyProduct, onDelete }) {
     return (
         <div className="adminpanel">
             <h2>Felhasználók</h2>
@@ -16,7 +16,6 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                         <th>Műveletek</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {users?.map(user => (
                         <UserInfo
@@ -28,11 +27,8 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                             onDelete={() => onDelete(user)}
                         />
                     ))}
-
                 </tbody>
             </table>
-
-            {/* -------------------------- */}
 
             <h2>Rendelések</h2>
             <table className="table-admin">
@@ -49,7 +45,6 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                         <th>Műveletek</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {orders?.map(order => (
                         <OrderInfo
@@ -62,15 +57,12 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                             postalCode={order.Postal_Code}
                             city={order.City}
                             address={order.StreetHousenumber}
-                            onModify={() => onModify(order)}
+                            onModify={() => onModifyOrder(order)}
                             onDelete={() => onDelete(order)}
                         />
                     ))}
-
                 </tbody>
             </table>
-
-            {/* -------------------------- */}
 
             <h2>Termékek</h2>
             <table className="table-admin">
@@ -84,7 +76,6 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                         <th>Műveletek</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {products?.map(product => (
                         <ProductInfo
@@ -92,17 +83,14 @@ export default function Table({ users, orders, products, onModify, onDelete }) {
                             product_id={product.Product_Id}
                             product_name={product.Product_Name}
                             description={product.ProductDescription}
-                            product_price={`${product.ProductPrice} Ft`}
+                            product_price={product.ProductPrice}
                             stock={product.Stock}
-                            onModify={() => onModify(product)}
+                            onModify={() => onModifyProduct(product)}
                             onDelete={() => onDelete(product)}
                         />
                     ))}
-
                 </tbody>
             </table>
-            <Gomb onClick='' className='px-3 py-1 text-decoration-none rounded text-dark fs-4 w-100' text="Termék hozzáadása"></Gomb>
-
         </div>
     )
 }

@@ -13,27 +13,27 @@ export default defineConfig({
   server: {
     proxy: {
       '/users': {
-        target: 'http://127.0.0.1:3000',
+        target: 'https://nodejs304.dszcbaross.edu.hu',
         changeOrigin: true
       },
 
       '/orders': {
-        target: 'http://127.0.0.1:3000',
+        target: 'https://nodejs304.dszcbaross.edu.hu',
         changeOrigin: true
       },
 
       '/categories': {
-        target: 'http://127.0.0.1:3000',
+        target: 'https://nodejs304.dszcbaross.edu.hu',
         changeOrigin: true
       },
 
       '/products': {
-        target: 'http://127.0.0.1:3000',
+        target: 'https://nodejs304.dszcbaross.edu.hu',
         changeOrigin: true
       },
 
       '/cart': {
-        target: 'http://127.0.0.1:3000',
+        target: 'https://nodejs304.dszcbaross.edu.hu',
         changeOrigin: true
       }
 

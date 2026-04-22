@@ -1,5 +1,12 @@
 export default function UserInfo({ user_id, username, email, role, onModify, onDelete }) {
+    const productObject = {
+        User_Id: user_id,
+        Username: username,
+        Email: email,
+        Role: role,
+    }
     return (
+        
         <tr>
             <td>{user_id}</td>
             <td>{username}</td>
