@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 #root {
   margin: 0px;
   text-align: center;
@@ -88,6 +90,8 @@ h1{
   font-family: 'Bodoni', sans-serif;
   color: #1A1A1D;
 }
+
+
 
 h1.cim-text{
   color: #F5F5F7;
