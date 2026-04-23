@@ -27,9 +27,8 @@ function Fooldal() {
         <>
             <Header />
             <div className='udvozlo' id='fadeInUp-animation'>
-                <h1>Üdvözlünk {user.Username} a</h1>
-                <h1>NoiseMaker</h1>
-                <h1>oldalán!</h1>
+                <h1 className='text-shadow-amber-500'>Üdvözlünk {user.Username} a <br />  NoiseMaker <br /> oldalán!</h1>
+
             </div>
 
             <Body />
