@@ -31,7 +31,7 @@ export default defineConfig({
       },
 
       '/products': {
-        target: 'https://nodejs304.dszcbaross.edu.hu',
+        target: 'https://nodejs304.dszcbaross.edu.hu',  
         changeOrigin: true
       },
 

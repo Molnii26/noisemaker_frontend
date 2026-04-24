@@ -5,6 +5,12 @@ import Footer from "../components/Footer";
 import Table from "../components/Table";
 import { userEdit, deleteUser } from "../api";
 
+const authFetch = (url, options = {}) => fetch(url, {
+    ...options,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...options.headers }
+})
+
 export default function Admin() {
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
@@ -27,21 +33,21 @@ export default function Admin() {
     const [OrderStatus, setOrderStatus] = useState('')
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/users/getAllUsers")
+        authFetch("http://127.0.0.1:3000/users/getAllUsers")
             .then(res => res.json())
             .then(data => setUsers(data))
             .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/orders/allOrders")
+        authFetch("http://127.0.0.1:3000/orders/allOrders")
             .then(res => res.json())
             .then(data => setOrders(Array.isArray(data) ? data : data.orders ?? []))
             .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/products/getAllProducts")
+        authFetch("http://127.0.0.1:3000/products/getAllProducts")
             .then(res => res.json())
             .then(data => setProducts(Array.isArray(data) ? data : data.products ?? []))
             .catch(err => console.error(err))
@@ -51,7 +57,7 @@ export default function Admin() {
         if (item.Product_Id !== undefined) {
             if (!window.confirm(`Biztosan törölni akarod a "${item.Product_Name}" terméket?`)) return
 
-            const res = await fetch(`http://127.0.0.1:3000/products/deleteProduct/${item.Product_Id}`, { method: 'DELETE' })
+            const res = await authFetch(`http://127.0.0.1:3000/products/deleteProduct/${item.Product_Id}`, { method: 'DELETE' })
             const data = await res.json()
             if (data.error) return alert(data.error)
 
@@ -62,7 +68,7 @@ export default function Admin() {
         if (item.Order_Id !== undefined) {
             if (!window.confirm(`Biztosan törölni akarod a ${item.Order_Id} számú rendelést?`)) return
 
-            const res = await fetch(`http://127.0.0.1:3000/orders/deleteOrder/${item.Order_Id}`, { method: 'DELETE' })
+            const res = await authFetch(`http://127.0.0.1:3000/orders/deleteOrder/${item.Order_Id}`, { method: 'DELETE' })
             const data = await res.json()
             if (data.error) return alert(data.error)
 
@@ -132,9 +138,8 @@ export default function Admin() {
     }
 
     async function editOrder(Order_Id) {
-        const res = await fetch(`http://127.0.0.1:3000/orders/orderStatusModify/${Order_Id}`, {
+        const res = await authFetch(`http://127.0.0.1:3000/orders/orderStatusModify/${Order_Id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Order_Status: OrderStatus })
         })
         const data = await res.json()
@@ -146,9 +151,8 @@ export default function Admin() {
     }
 
     async function editProduct(Product_Id) {
-        const res = await fetch(`http://127.0.0.1:3000/products/modifyProduct/${Product_Id}`, {
+        const res = await authFetch(`http://127.0.0.1:3000/products/modifyProduct/${Product_Id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
         })
         const data = await res.json()
@@ -163,15 +167,13 @@ export default function Admin() {
         if (!Product_Name || !ProductPrice || !ProductDescription || !Stock)
             return alert('Minden mezőt ki kell tölteni!')
 
-        const res = await fetch('http://127.0.0.1:3000/products/addProduct', {
+        const res = await authFetch('http://127.0.0.1:3000/products/addProduct', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
         })
         const data = await res.json()
         if (data.error) return alert(data.error)
 
-        // A backend vagy { product: {...} } vagy közvetlenül az objektumot adja vissza
         setProducts(prev => [...prev, data.product ?? data])
         setShowModal(false)
         alert('Termék sikeresen hozzáadva')
@@ -207,7 +209,6 @@ export default function Admin() {
             </>
         )
 
-        // product és addProduct ugyanazokat a mezőket használja
         if (modalType === 'product' || modalType === 'addProduct') return (
             <>
                 <label className="form-label fw-bold mt-2">Termék neve</label>
