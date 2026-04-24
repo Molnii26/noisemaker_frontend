@@ -20,8 +20,8 @@ export default function OrderInfo({ order_id, user_id, order_status, date, phone
             <td>{city}</td>
             <td>{address}</td>
             <td>
-                <button className="btn btn-sm btn-primary me-2" onClick={onModify}>Szerkesztés</button>
-                <button className="btn btn-sm btn-danger" onClick={onDelete}>Törlés</button>
+                <button className="btn btn-sm btn-primary me-2" onClick={() => onModify(productObject)}>Szerkesztés</button>
+                <button className="btn btn-sm btn-danger" onClick={() => onDelete(productObject)}>Törlés</button>
              </td>
         </tr>
     )

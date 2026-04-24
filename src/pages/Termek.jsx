@@ -6,6 +6,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Gomb from '../components/Gomb';
 
+const authFetch = (url, options = {}) => fetch(url, {
+    ...options,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...options.headers }
+})
+
 function Termek() {
     const [productsData, setProductsData] = useState([]);
     const { id } = useParams();
@@ -20,23 +26,21 @@ function Termek() {
 
     const product = productsData.find(p => p.Product_Id == id);
 
-    const addToKosar = () => {
-        const kosar = JSON.parse(localStorage.getItem('kosar') || '[]');
-        const existing = kosar.find(item => item.Product_Id == id);
+    const addToKosar = async () => {
+        if (!product) return;
 
-        if (existing) {
-            existing.quantity += 1;
-        } else {
-            kosar.push({
-                Product_Id: product.Product_Id,
-                Product_Name: product.Product_Name,
-                ProductPrice: product.ProductPrice,
-                ProductIMG: product.ProductIMG,
-                quantity: 1
-            });
+        const res = await authFetch('http://127.0.0.1:3000/cart/addCart', {
+            method: 'POST',
+            body: JSON.stringify({ Product_Id: product.Product_Id, Quantity: 1 })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            alert(data.error);
+            return;
         }
 
-        localStorage.setItem('kosar', JSON.stringify(kosar));
         navigate('/kosar');
     };
 
@@ -50,7 +54,7 @@ function Termek() {
                 <div className='termek-leiras'>
                     <h2>{product?.Product_Name}</h2>
                     <p>{product?.ProductDescription}</p>
-                    <p>Ár: {product?.ProductPrice} Ft</p>
+                    <p>Ár: {product?.ProductPrice?.toLocaleString()} Ft</p>
                     <Gomb
                         onClick={addToKosar}
                         className='px-3 py-1 text-decoration-none rounded text-dark fs-4 w-100'

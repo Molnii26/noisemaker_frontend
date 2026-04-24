@@ -2,35 +2,93 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+const authFetch = (url, options = {}) => fetch(url, {
+    ...options,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...options.headers }
+})
+
 export default function Kosar() {
     const [kosarItems, setKosarItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('kosar') || '[]');
-        setKosarItems(data);
+        fetchKosar();
     }, []);
 
-    const osszesAr = kosarItems.reduce(
-        (sum, item) => sum + item.ProductPrice * item.quantity, 0
-    );
+    async function fetchKosar() {
+        try {
+            const res = await authFetch('http://127.0.0.1:3000/cart/CartItems');
+            if (res.status === 400) {
+                setKosarItems([]);
+                return;
+            }
+            const data = await res.json();
+            if (data.error) {
+                setKosarItems([]);
+                return;
+            }
+            setKosarItems(Array.isArray(data) ? data : []);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-    console.log(osszesAr);
+    async function removeItem(Cart_Item_Id) {
+        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCartItem/${Cart_Item_Id}`, {
+            method: 'DELETE'
+        });
+        if (res.ok) {
+            setKosarItems(prev => prev.filter(item => item.Cart_Item_Id !== Cart_Item_Id));
+        }
+    }
 
-    const removeItem = (id) => {
-        const updated = kosarItems.filter(item => item.Product_Id !== id);
-        setKosarItems(updated);
-        localStorage.setItem('kosar', JSON.stringify(updated));
-    };
+    async function modifyQuantity(Cart_Item_Id, newQuantity) {
+        if (newQuantity <= 0) {
+            await removeItem(Cart_Item_Id);
+            return;
+        }
+        const res = await authFetch(`http://127.0.0.1:3000/cart/modifyCartItem/${Cart_Item_Id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ Quantity: newQuantity })
+        });
+        if (res.ok) {
+            setKosarItems(prev =>
+                prev.map(item =>
+                    item.Cart_Item_Id === Cart_Item_Id
+                        ? { ...item, Quantity: newQuantity }
+                        : item
+                )
+            );
+        }
+    }
 
-    const sikeresVasarlas = () => {
+    async function sikeresVasarlas() {
         if (kosarItems.length === 0) {
             alert("A kosár üres");
             return;
         }
-        alert("Sikeres vásárlás");
-        localStorage.removeItem('kosar');
-        setKosarItems([]);
-    };
+
+        const Cart_Id = kosarItems[0]?.Cart_Id;
+        if (!Cart_Id) return;
+
+        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCart/${Cart_Id}`, {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            alert("Sikeres vásárlás!");
+            setKosarItems([]);
+        } else {
+            alert("Hiba történt a vásárlásnál.");
+        }
+    }
+
+    const osszesAr = kosarItems.reduce(
+        (sum, item) => sum + Number(item.ProductPrice) * Number(item.Quantity), 0
+    );
 
     return (
         <>
@@ -39,11 +97,13 @@ export default function Kosar() {
                 <div className="jobb-kosar">
                     <h2 className="text-2xl font-bold mb-4">Kosár</h2>
                     <div className="space-y-4">
-                        {kosarItems.length === 0 ? (
+                        {loading ? (
+                            <p>Betöltés...</p>
+                        ) : kosarItems.length === 0 ? (
                             <p>A kosár üres.</p>
                         ) : (
                             kosarItems.map(item => (
-                                <div key={item.Product_Id} className="kosar-item">
+                                <div key={item.Cart_Item_Id} className="kosar-item">
                                     <img
                                         src={item.ProductIMG}
                                         alt={item.Product_Name}
@@ -51,10 +111,15 @@ export default function Kosar() {
                                     />
                                     <div className="kosar-item-info">
                                         <p className="font-semibold">{item.Product_Name}</p>
-                                        <p>{item.ProductPrice} Ft × {item.quantity}</p>
+                                        <p>{Number(item.ProductPrice).toLocaleString()} Ft</p>
+                                        <div className="kosar-quantity">
+                                            <button onClick={() => modifyQuantity(item.Cart_Item_Id, item.Quantity - 1)}>−</button>
+                                            <span>{item.Quantity}</span>
+                                            <button onClick={() => modifyQuantity(item.Cart_Item_Id, item.Quantity + 1)}>+</button>
+                                        </div>
                                     </div>
                                     <button
-                                        onClick={() => removeItem(item.Product_Id)}
+                                        onClick={() => removeItem(item.Cart_Item_Id)}
                                         className="kosar-remove-gomb"
                                     >
                                         ✕
@@ -67,7 +132,7 @@ export default function Kosar() {
                 <div className="bal-kosar">
                     <div className="mt-6 flex justify-between items-center border-t border-zinc-800 pt-4">
                         <h3 className="text-xl font-semibold">Összesen:</h3>
-                        <p className="text-xl font-bold">{osszesAr} Ft</p>
+                        <p className="text-xl font-bold">{osszesAr.toLocaleString()} Ft</p>
                     </div>
                     <button onClick={sikeresVasarlas} className="fizetes-gomb">
                         Fizetés
