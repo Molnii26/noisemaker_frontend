@@ -60,7 +60,7 @@ export default function Bejelentkezes() {
                     placeholder="*******"
                 />
 
-                <div className="text-center mt-5">
+                <div className="text-center mt-3">
                     <Gomb text='Belépés' onClick={onLogin} />
                 </div>
 

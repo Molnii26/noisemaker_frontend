@@ -5,7 +5,7 @@
   text-decoration: none;
 }
 
-body{
+body {
   background-image: url('../../images/bckgrnd2.jpg');
 }
 
@@ -19,7 +19,7 @@ body{
   z-index: -1;
 }
 
-div.fooldal{
+div.fooldal {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +30,7 @@ div.fooldal{
   width: 100%;
 }
 
-card.termekek-kartya{
+card.termekek-kartya {
   height: 100px;
   border: #F5F5F7 1px solid;
   width: 240px;
@@ -48,12 +48,19 @@ card.termekek-kartya{
   font-size: 40px;
 }
 
-div.filter{
-  background: none;
-  color: #1A1A1D;
+div.filter {
+  width: 1000px;
+  gap: 10px;
+  align-self: baseline;
+  margin-top: 10px;
+  padding: 40px;
+  background-color: none;
+  display: flex;
+  flex-direction: row;
+  color: white;
 }
 
-card.termekek-kartya:hover{
+card.termekek-kartya:hover {
   transition: all 0.01 ease-in-out;
   border: #F5F5F7 2px solid;
   text-decoration: none;
@@ -61,7 +68,7 @@ card.termekek-kartya:hover{
   background-color: #f5f5f7b6;
 }
 
-img{
+img {
   height: 300px;
   border-radius: 10px;
   justify-content: center;
@@ -71,31 +78,31 @@ img{
   image-rendering: crisp-edges;
 }
 
-img.carousel-img{
+img.carousel-img {
   image-rendering: crisp-edges;
   width: 700px;
   height: 500px;
 }
 
-img.product-img{
+img.product-img {
   height: fit-content;
   width: 150px;
   margin: 10px;
 }
 
 
-h1{
+h1 {
   font-family: 'Bodoni', sans-serif;
   color: #1A1A1D;
 }
 
 
 
-h1.cim-text{
+h1.cim-text {
   color: #F5F5F7;
 }
 
-h1.navbar-cim{
+h1.navbar-cim {
   color: #1A1A1D;
   font-size: 60px;
   font-family: 'Bodoni', sans-serif;
@@ -104,7 +111,7 @@ h1.navbar-cim{
   margin-top: 0px;
 }
 
-h2{
+h2 {
   color: #F5F5F7;
   text-align: center;
   margin-top: 30px;
@@ -113,11 +120,11 @@ h2{
   text-decoration: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.header{
+.header {
   align-items: center;
   justify-content: space-between;
   display: flex;
@@ -128,14 +135,14 @@ a{
   top: 0;*/
 }
 
-a.cim{
+a.cim {
   width: 200px;
   color: #D4AF37;
   text-decoration: none;
   margin-left: 50px;
 }
 
-.cart{
+.cart {
   width: 60px;
   height: 60px;
   margin-bottom: 2px;
@@ -144,7 +151,7 @@ a.cim{
   border-radius: 100px;
 }
 
-.reg{
+.reg {
   width: 60px;
   height: 60px;
   margin-bottom: 2px;
@@ -247,41 +254,48 @@ a.cim{
 /*-------------------------------------------------------------------------*/
 
 
-.gomb-kereses img{
+.gomb-kereses img {
   height: 40px;
   margin-bottom: 20px;
   border-radius: 100px;
   border: none;
 }
 
-div.container-reg{
+div.container-reg {
   display: inline-block;
+  border: #1A1A1D 1px solid;
+  border-radius: 50px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 200px;
+  width: 300px;
+  color: #F5F5F7;
   margin-bottom: 60px;
   font-size: 20px;
+  background-color: #1A1A1D;
   padding: 20px;
 }
 
-div.container-log{
+
+div.container-log {
   display: inline-block;
+  border: #1A1A1D 1px solid;
+  color: #F5F5F7;
+  border-radius: 50px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: auto;
+  width: 300px;
   margin-bottom: 60px;
   font-size: 20px;
   padding: 20px;
+  background-color: #1A1A1D;
 }
 
-label{
-  font-size: 20px;
-  margin-right: 10px;
-}
 
-.gombok{
+
+
+.gombok {
   border-radius: 100px;
   border: #1A1A1D 1px solid;
   margin-top: 10px;
@@ -291,23 +305,9 @@ label{
   font-weight: bold;
 }
 
-div.container-reg{
-  border: #1A1A1D 1px solid;
-  border-radius: 50px;
-  width: 200px;
-  color: #F5F5F7;
-  background-color: #1A1A1D;
-}
 
-div.container-log{
-  border: #1A1A1D 1px solid;
-  border-radius: 50px;
-  width: 200px;
-  color: #F5F5F7;
-  background-color: #1A1A1D;
-}
 
-h1.text-center{
+h1.text-center {
   color: #F5F5F7;
   font-size: 25px;
   font-family: 'Bodoni', sans-serif;
@@ -316,36 +316,33 @@ h1.text-center{
   margin-bottom: 20px;
 }
 
-button.gombok{
+button.gombok {
   border-radius: 100px;
   font-size: 20px;
+
+
+  width: 100%;
+
 }
 
 
-input.form-control{
+input.form-control {
   margin-top: -40px;
 }
 
-div.filter{
-  width: 1000px;
-  gap: 10px;
-  align-self: baseline;
-  margin-top: 10px;
-  padding: 40px;
-  background-color: none;
-  display: flex;
-  flex-direction: row;
-  color: white;
-}
 
-div.products-container{
+
+div.products-container {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  gap: 20px;
   justify-self: center;
-  align-self: center;
-  margin-left: 200px;
 }
+
 /*------------------------------------*/
 .container {
   display: flex;
@@ -364,18 +361,10 @@ div.products-container{
   margin-bottom: 20px;
 }
 
-.products-container {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  justify-self: center;
-}
+
 
 .product-card {
-  background-color: #1a1a1db6;
+  background-color: #303031;
   padding: 20px;
   border-radius: 10px;
   height: auto;
@@ -390,13 +379,13 @@ div.products-container{
 
 /*------------------------------------*/
 
-div.siker{
+div.siker {
   background-color: green;
   border-radius: 100px;
   margin-bottom: 20px;
 }
 
-div.fiokom{
+div.fiokom {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -409,14 +398,14 @@ div.fiokom{
   align-items: center;
 }
 
-div.container-termekek{
+div.container-termekek {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-div.kosar_egesz{
+div.kosar_egesz {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -428,19 +417,19 @@ div.kosar_egesz{
   margin-bottom: 20px;
 }
 
-div.jobb-kosar{
+div.jobb-kosar {
   width: 70%;
   background-color: #F5F5F7e1;
   margin-right: 100px;
 }
 
-div.bal-kosar{
+div.bal-kosar {
   width: 25%;
   background-color: #F5F5F7e1;
   margin-right: 10px;
 }
 
-button.fizetes-gomb{
+button.fizetes-gomb {
   width: 50%;
   margin-top: 4px;
   border-radius: 10px;
@@ -449,7 +438,7 @@ button.fizetes-gomb{
   margin-bottom: 5px;
 }
 
-div.adminpanel{
+div.adminpanel {
   color: #1A1A1D;
   justify-self: center;
   align-self: center;
@@ -458,36 +447,36 @@ div.adminpanel{
   margin-bottom: 200px;
 }
 
-div.table-admin{
+div.table-admin {
   width: 100%;
   justify-self: center;
   align-self: center;
   gap: 100px;
 }
 
-h1.fiokom-cim{
+h1.fiokom-cim {
   color: #1A1A1D;
   background-color: #F5F5F7;
   font-size: 30px;
   margin-top: 10px;
 }
 
-h3.kategoria-cim{
+h3.kategoria-cim {
   color: #1A1A1D;
 }
 
-div#fadeInUp-animation.udvozlo{
+div#fadeInUp-animation.udvozlo {
   color: #F5F5F7;
   font-weight: bold;
   font-size: 80px;
   margin-top: 50px;
 }
 
-h1.footer-logo{
+h1.footer-logo {
   color: #F5F5F7;
 }
 
-div.termek-ablak{
+div.termek-ablak {
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -497,7 +486,7 @@ div.termek-ablak{
   margin-bottom: 200px;
 }
 
-div.termek-kep{
+div.termek-kep {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -509,7 +498,7 @@ div.termek-kep{
   height: auto;
 }
 
-div.termek-leiras{
+div.termek-leiras {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -523,30 +512,30 @@ div.termek-leiras{
 /* fgszfhuuzgsfhjfghuijnfshufjghsufabjsghuf */
 
 .kosar-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .kosar-item-kep {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    border-radius: 8px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .kosar-item-info {
-    flex: 1;
+  flex: 1;
 }
 
 .kosar-remove-gomb {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ef4444;
-    font-size: 1.1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  font-size: 1.1rem;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
@@ -556,6 +545,7 @@ div.termek-leiras{
     transform: translateY(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0%);
     opacity: 1;
@@ -567,6 +557,7 @@ div.termek-leiras{
     transform: translateX(-100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0%);
     opacity: 1;
@@ -577,7 +568,7 @@ div.termek-leiras{
   animation: 1.5s fadeInUp;
 }
 
-#fadeInLeft-animation{
+#fadeInLeft-animation {
   animation: 1s fadeInLeft;
 }
 
@@ -624,13 +615,8 @@ div.termek-leiras{
     align-items: stretch;
   }
 
-  div.filter {
-    width: 100%;
-    flex-direction: column;
-    padding: 16px;
-    gap: 6px;
-    box-sizing: border-box;
-  }
+
+
 
   .filter {
     width: 100%;
@@ -645,18 +631,8 @@ div.termek-leiras{
     margin-bottom: 4px;
   }
 
-  div.products-container {
-    margin-left: 0;
-    width: 100%;
-    justify-content: center;
-  }
 
-  .products-container {
-    width: 100%;
-    padding: 12px;
-    gap: 12px;
-    justify-content: center;
-  }
+
 
   .product-card {
     width: calc(50% - 12px);
@@ -734,18 +710,17 @@ div.termek-leiras{
   div.container-reg,
   div.container-log {
     width: 90%;
-    padding: 16px;
+
     box-sizing: border-box;
   }
 
   label {
-    font-size: 16px;
+    font-size: 20px;
+
+
   }
 
-  button.gombok {
-    font-size: 16px;
-    width: 100%;
-  }
+
 
   /* --- Fiókm oldal --- */
   div.fiokom {

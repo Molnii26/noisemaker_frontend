@@ -35,7 +35,7 @@ function Regisztracio() {
     return (
         <>
             <Header />
-            <div className="container-log" style={{ maxWidth: 520, marginTop: 60 }}>
+            <div className="container-reg" style={{ maxWidth: 620, marginTop: 60 }}>
                 <h1 className="text-center">Regisztráció</h1>
 
                 {uzenet && <div className="alert alert-success text-center my-2">{uzenet}</div>}
