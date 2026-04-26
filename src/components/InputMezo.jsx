@@ -2,9 +2,9 @@ function InputMezo({ label, type, value, placeholder, setValue }){
     return (
         <>
             <div className="input-mezo">
-                <label className="mb-5">{label}</label>
+                <label>{label}</label>
                 <input
-                    className="form-control"
+                    className="form-control mt-2"
                     type={type}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
