@@ -14,11 +14,9 @@ function Termekek() {
     const [subcategoriesData, setSubcategoriesData] = useState([]);
 
     useEffect(() => {
-        // Termékek
         (async () => {
             const data = await getProducts();
             setProductsData(data)
-
         })();
 
         (async () => {
@@ -34,7 +32,7 @@ function Termekek() {
 
     const handleCategoryChange = (value) => {
         setCategory(value === "összes" ? "összes" : Number(value));
-        setSubcategory("összes"); // reset alkategória
+        setSubcategory("összes");
     };
 
     // Csak az aktuális főkategóriához tartozó alkategóriák
@@ -42,14 +40,23 @@ function Termekek() {
         sub => category === "összes" || Number(sub.Category_Id) === Number(category)
     );
 
+    // A termékeken nincs Category_Id, ezért az alkategóriák segítségével
+    // megkeressük, hogy az adott termék melyik főkategóriába tartozik.
+    const filteredProducts = productsData.filter(product => {
 
-    console.log(productsData)
+        // Megkeressük azt az alkategóriát, amelyhez a termék tartozik
+        const productSubcategory = subcategoriesData.find(
+            sub => Number(sub.Subcategory_Id) === Number(product.Subcategory_Id)
+        );
 
-    
-    const filteredProducts = productsData.filter(product =>
-        (category === "összes" || Number(product.Category_Id) === Number(category)) &&
-        (subcategory === "összes" || Number(product.Subcategory_Id) === Number(subcategory))
-    )
+        // Az alkategóriából kiolvasható a főkategória azonosítója
+        const productCategoryId = productSubcategory ? Number(productSubcategory.Category_Id) : null;
+
+        return (
+            (category === "összes" || productCategoryId === Number(category)) &&
+            (subcategory === "összes" || Number(product.Subcategory_Id) === Number(subcategory))
+        );
+    })
         .sort((a, b) => {
             if (sortType === "price-asc") return a.ProductPrice - b.ProductPrice;
             if (sortType === "price-desc") return b.ProductPrice - a.ProductPrice;
@@ -66,7 +73,7 @@ function Termekek() {
                 <div className="filter">
 
                     <h3 className='kategoria-cim'>Kategória</h3>
-                    <select onChange={(e) => setCategory(e.target.value)}>
+                    <select onChange={(e) => handleCategoryChange(e.target.value)}>
                         <option value="összes">Összes</option>
                         {categoriesData.map((cat) => (
                             <option key={cat.Category_Id} value={cat.Category_Id}>
@@ -75,7 +82,6 @@ function Termekek() {
                         ))}
                     </select>
 
-                    {/* Alkategória csak akkor jelenik meg, ha van találat */}
                     {category !== "összes" && filteredSubcategories.length > 0 && (
                         <>
                             <h3 className='kategoria-cim'>Alkategória</h3>
@@ -124,7 +130,7 @@ function Termekek() {
                         ))
                     )}
                 </div>
-            </div >
+            </div>
 
             <Footer />
         </>
