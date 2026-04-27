@@ -1,10 +1,16 @@
 import '../css/App.css'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
-import { getProducts, addToCart } from '../api';
+import { getProducts } from '../api';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Gomb from '../components/Gomb';
+
+const authFetch = (url, options = {}) => fetch(url, {
+    ...options,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...options.headers }
+})
 
 function Termek() {
     const [productsData, setProductsData] = useState([]);
@@ -22,17 +28,19 @@ function Termek() {
 
     const addToKosar = async () => {
         if (!product) return;
-        const token = localStorage.getItem('token');
-        if (!token) {
-            alert('A kosárhoz be kell jelentkezni!');
-            navigate('/bejelentkezes');
-            return;
-        }
-        const data = await addToCart(product.Product_Id, 1);
+
+        const res = await authFetch('http://127.0.0.1:3000/cart/addCart', {
+            method: 'POST',
+            body: JSON.stringify({ Product_Id: product.Product_Id, Quantity: 1 })
+        });
+
+        const data = await res.json();
+
         if (data.error) {
             alert(data.error);
             return;
         }
+
         navigate('/kosar');
     };
 
