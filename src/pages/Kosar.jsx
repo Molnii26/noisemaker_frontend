@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-const authFetch = (url, options = {}) => fetch(url, {
-    ...options,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers }
-})
+import { getCart, modifyCartItem, deleteCartItem, deleteCart } from "../api";
 
 export default function Kosar() {
     const [kosarItems, setKosarItems] = useState([]);
@@ -18,17 +13,8 @@ export default function Kosar() {
 
     async function fetchKosar() {
         try {
-            const res = await authFetch('http://127.0.0.1:3000/cart/CartItems');
-            if (res.status === 400) {
-                setKosarItems([]);
-                return;
-            }
-            const data = await res.json();
-            if (data.error) {
-                setKosarItems([]);
-                return;
-            }
-            setKosarItems(Array.isArray(data) ? data : []);
+            const data = await getCart();
+            setKosarItems(data);
         } catch (err) {
             console.error(err);
         } finally {
@@ -37,12 +23,9 @@ export default function Kosar() {
     }
 
     async function removeItem(Cart_Item_Id) {
-        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCartItem/${Cart_Item_Id}`, {
-            method: 'DELETE'
-        });
-        if (res.ok) {
-            setKosarItems(prev => prev.filter(item => item.Cart_Item_Id !== Cart_Item_Id));
-        }
+        const data = await deleteCartItem(Cart_Item_Id);
+        if (data.error) return alert(data.error);
+        setKosarItems(prev => prev.filter(item => item.Cart_Item_Id !== Cart_Item_Id));
     }
 
     async function modifyQuantity(Cart_Item_Id, newQuantity) {
@@ -50,19 +33,15 @@ export default function Kosar() {
             await removeItem(Cart_Item_Id);
             return;
         }
-        const res = await authFetch(`http://127.0.0.1:3000/cart/modifyCartItem/${Cart_Item_Id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ Quantity: newQuantity })
-        });
-        if (res.ok) {
-            setKosarItems(prev =>
-                prev.map(item =>
-                    item.Cart_Item_Id === Cart_Item_Id
-                        ? { ...item, Quantity: newQuantity }
-                        : item
-                )
-            );
-        }
+        const data = await modifyCartItem(Cart_Item_Id, newQuantity);
+        if (data.error) return alert(data.error);
+        setKosarItems(prev =>
+            prev.map(item =>
+                item.Cart_Item_Id === Cart_Item_Id
+                    ? { ...item, Quantity: newQuantity }
+                    : item
+            )
+        );
     }
 
     async function sikeresVasarlas() {
@@ -70,20 +49,13 @@ export default function Kosar() {
             alert("A kosár üres");
             return;
         }
-
         const Cart_Id = kosarItems[0]?.Cart_Id;
         if (!Cart_Id) return;
 
-        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCart/${Cart_Id}`, {
-            method: 'DELETE'
-        });
-
-        if (res.ok) {
-            alert("Sikeres vásárlás!");
-            setKosarItems([]);
-        } else {
-            alert("Hiba történt a vásárlásnál.");
-        }
+        const data = await deleteCart(Cart_Id);
+        if (data.error) return alert("Hiba történt a vásárlásnál.");
+        alert("Sikeres vásárlás!");
+        setKosarItems([]);
     }
 
     const osszesAr = kosarItems.reduce(
