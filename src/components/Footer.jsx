@@ -24,10 +24,10 @@ function Footer(){
         <div className="footer-social">
           <h4 className="footer-title">Elérhetőségeink</h4>
           <div className="footer-icons">
-            <a href="https://www.instagram.com/" className="footer-icon">
+            <a href="https://www.instagram.com/molnii.beats/?next=%2F" className="footer-icon">
               <FaInstagram />
             </a>
-            <a href="https://www.facebook.com/" className="footer-icon">
+            <a href="https://www.facebook.com/dszcbarossgabor" className="footer-icon">
               <FaFacebookF />
             </a>
           </div>
