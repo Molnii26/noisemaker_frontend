@@ -1,9 +1,9 @@
-import Gomb from "./Gomb";
+import CategoryInfo from "./CategoryInfo";
 import OrderInfo from "./OrderInfo";
 import ProductInfo from "./ProductInfo";
 import UserInfo from "./UserInfo";
 
-export default function Table({ users, orders, products, onModify, onModifyOrder, onModifyProduct, onDelete }) {
+export default function Table({ users, orders, products, categories, onModify, onModifyOrder, onModifyProduct, onModifyCategory, onDelete }) {
     return (
         <div className="adminpanel">
             <h2>Felhasználók</h2>
@@ -87,6 +87,27 @@ export default function Table({ users, orders, products, onModify, onModifyOrder
                             stock={product.Stock}
                             onModify={() => onModifyProduct(product)}
                             onDelete={() => onDelete(product)}
+                        />
+                    ))}
+                </tbody>
+            </table>
+
+            <h2>Kategóriák</h2>
+            <table className="table-admin">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kategória neve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {categories?.map(category => (
+                        <CategoryInfo
+                            key={category.Category_Id}
+                            category_id={category.Category_Id}
+                            categoryName={category.CategoryName}
+                            onModify={() => onModifyCategory(category)}
+                            onDelete={() => onDelete(category)}
                         />
                     ))}
                 </tbody>

@@ -1,5 +1,5 @@
 export default function UserInfo({ user_id, username, email, role, onModify, onDelete }) {
-    const productObject = {
+    const userObject = {
         User_Id: user_id,
         Username: username,
         Email: email,
@@ -14,8 +14,8 @@ export default function UserInfo({ user_id, username, email, role, onModify, onD
             <td>{role}</td>
 
             <td>
-                <button className="btn btn-sm btn-primary me-2" onClick={onModify}>Szerkesztés</button>
-                <button className="btn btn-sm btn-danger" onClick={onDelete}>Törlés</button>
+                <button className="btn btn-sm btn-primary me-2" onClick={() => onModify(userObject)}>Szerkesztés</button>
+                <button className="btn btn-sm btn-danger" onClick={() => onDelete(userObject)}>Törlés</button>
              </td>
         </tr>
     )

@@ -1,6 +1,7 @@
 const BACKEND_URL_USER = '/users'
 const BACKEND_URL_PRODUCTS = '/products'
 const BACKEND_URL_CATEGORIES = '/categories'
+const BACKEND_URL_ORDERS = '/orders'
 
 export async function regisztracio(username, email, psw){
     const res = await fetch(`${BACKEND_URL_USER}/register`, {
@@ -139,6 +140,20 @@ export async function userEdit(User_Id, username, email, User_Role) {
 export async function deleteUser(User_Id) {
     const res = await fetch(`${BACKEND_URL_USER}/deleteUser/${User_Id}`,{
         method: 'DELETE',
+        credentials: 'include'
+    })
+
+    if (!res.ok) {
+        const data = await res.json()
+        return { error: data?.error }
+    }
+
+    return await res.json()
+}
+
+export async function rendelesek(User_Id) {
+    const res = await fetch(`${BACKEND_URL_ORDERS}/myOrders/${User_Id}`,{
+        method: 'GET',
         credentials: 'include'
     })
 
