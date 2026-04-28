@@ -6,12 +6,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Gomb from '../components/Gomb';
 
-const authFetch = (url, options = {}) => fetch(url, {
-    ...options,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers }
-})
-
 function Termek() {
     const [productsData, setProductsData] = useState([]);
     const { id } = useParams();
@@ -28,19 +22,21 @@ function Termek() {
 
     const addToKosar = async () => {
         if (!product) return;
-
-        const res = await authFetch('http://127.0.0.1:3000/cart/addCart', {
+    
+        const res = await fetch('http://nodejs304.dszcbaross.edu.hu/cart/addCart', {
             method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Product_Id: product.Product_Id, Quantity: 1 })
         });
-
+    
         const data = await res.json();
-
+    
         if (data.error) {
             alert(data.error);
             return;
         }
-
+    
         navigate('/kosar');
     };
 
