@@ -1,5 +1,5 @@
 export default function OrderInfo({ order_id, user_id, order_status, date, phoneNumber, postalCode, city, address, onModify, onDelete }) {
-    const productObject = {
+    const orderObject = {
         Order_Id: order_id,
         User_Id: user_id,
         Order_Status: order_status,
@@ -20,8 +20,8 @@ export default function OrderInfo({ order_id, user_id, order_status, date, phone
             <td>{city}</td>
             <td>{address}</td>
             <td>
-                <button className="btn btn-sm btn-primary me-2" onClick={() => onModify(productObject)}>Szerkesztés</button>
-                <button className="btn btn-sm btn-danger" onClick={() => onDelete(productObject)}>Törlés</button>
+                <button className="btn btn-sm btn-primary me-2" onClick={() => onModify(orderObject)}>Szerkesztés</button>
+                <button className="btn btn-sm btn-danger" onClick={() => onDelete(orderObject)}>Törlés</button>
              </td>
         </tr>
     )

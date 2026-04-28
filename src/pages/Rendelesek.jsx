@@ -93,7 +93,6 @@ function Rendelesek() {
         <>
             <Header />
             <div className="container-reg" style={{ maxWidth: 620, marginTop: 60 }}>
-                <h1 className="text-center">Rendelések</h1>
 
                 {uzenet && (
                     <div className="alert alert-success text-center my-2">
@@ -129,6 +128,32 @@ function Rendelesek() {
                     setValue={setStreetHouseNumber}
                     placeholder="Budai Ézsaiás utca 8/A"
                 />
+
+                <h2 className="mt-4">Rendelésed tételei:</h2>
+                {kosarItems.length === 0 ? (
+                    <p>A kosarad üres.</p>
+                ) : (
+                    <div className="table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Termék</th>
+                                    <th>Mennyiség</th>
+                                    <th>Ár</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {kosarItems.map((item) => (
+                                    <tr key={item.Product_Id}>
+                                        <td>{item.Product_Name}</td>
+                                        <td>{item.Quantity}</td>
+                                        <td>{item.ProductPrice * item.Quantity} Ft</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
 
                 <div className="text-center mt-3">
                     <Gomb
