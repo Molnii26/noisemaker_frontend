@@ -34,13 +34,13 @@
 
 [[redirects]]
 from = "/kosar"
-to = "https://nodejs304.dszcbaross.edu.hu/cart"
+to = "https://nodejs304.dszcbaross.edu.hu/kosar"
 status = 200
 force = true
 
 [[redirects]]
   from = "/termekek"
-  to = "https://nodejs304.dszcbaross.edu.hu/products"
+  to = "https://nodejs304.dszcbaross.edu.hu/termekek"
   status = 200
   force = true
 

@@ -15,6 +15,7 @@ export default function Admin() {
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
     const [products, setProducts] = useState([])
+    const [categories, setCategory] = useState([])
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [selectedUser, setSelectedUser] = useState(null)
@@ -31,6 +32,8 @@ export default function Admin() {
     const [Stock, setStock] = useState('')
 
     const [OrderStatus, setOrderStatus] = useState('')
+
+
 
     useEffect(() => {
         authFetch("http://127.0.0.1:3000/users/getAllUsers")
@@ -121,10 +124,18 @@ export default function Admin() {
         setShowModal(true)
     }
 
+    function onModifyCategory(category) {
+        setSelectedUser(category)
+        setModalType('category')
+        setCategory(category.CategoryName)
+        setShowModal(true)
+    }
+
     async function handleSave() {
         if (modalType === 'user') await editUser(selectedUser.User_Id)
         if (modalType === 'order') await editOrder(selectedUser.Order_Id)
         if (modalType === 'product') await editProduct(selectedUser.Product_Id)
+        if (modalType === 'category') await editCategory(selectedUser.Category_Id)
         if (modalType === 'addProduct') await addProduct()
     }
 
@@ -177,6 +188,19 @@ export default function Admin() {
         setProducts(prev => [...prev, data.product ?? data])
         setShowModal(false)
         alert('Termék sikeresen hozzáadva')
+    }
+
+    async function editCategory(Product_Id) {
+        const res = await authFetch(`http://127.0.0.1:3000/categories/modifyCategoryName/${Product_Id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
+        })
+        const data = await res.json()
+        if (data.error) return alert(data.error)
+
+        setProducts(prev => prev.map(p => p.Product_Id === Product_Id ? { ...p, Product_Name, ProductPrice, ProductDescription, Stock } : p))
+        setShowModal(false)
+        alert('Termék sikeresen módosítva')
     }
 
     function renderModalFields() {
@@ -238,10 +262,12 @@ export default function Admin() {
                 users={users}
                 orders={orders}
                 products={products}
+                categories={categories}
                 onDelete={onDelete}
                 onModify={onModify}
                 onModifyOrder={onModifyOrder}
                 onModifyProduct={onModifyProduct}
+                onModifyCategory={onModifyCategory}
             />
 
             {showModal && selectedUser && (
@@ -252,6 +278,7 @@ export default function Admin() {
                                 {modalType === 'user' && 'Felhasználó szerkesztése'}
                                 {modalType === 'order' && 'Rendelés szerkesztése'}
                                 {modalType === 'product' && 'Termék szerkesztése'}
+                                {modalType === 'category' && 'Termék szerkesztése'}
                                 {modalType === 'addProduct' && 'Új termék hozzáadása'}
                             </h5>
 

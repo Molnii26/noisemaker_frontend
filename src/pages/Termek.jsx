@@ -23,7 +23,7 @@ function Termek() {
     const addToKosar = async () => {
         if (!product) return;
     
-        const res = await fetch('http://nodejs304.dszcbaross.edu.hu/cart/addCart', {
+        const res = await fetch('http://localhost:3000/cart/addCart', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

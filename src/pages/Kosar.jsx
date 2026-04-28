@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, navigate } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-const authFetch = (url, options = {}) => fetch(url, {
-    ...options,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers }
-})
 
 export default function Kosar() {
     const [kosarItems, setKosarItems] = useState([]);
@@ -18,7 +12,9 @@ export default function Kosar() {
 
     async function fetchKosar() {
         try {
-            const res = await authFetch('http://127.0.0.1:3000/cart/CartItems');
+            const res = await fetch('http://localhost:3000/cart/CartItems', {
+                credentials: "include"
+            });
             if (res.status === 400) {
                 setKosarItems([]);
                 return;
@@ -37,7 +33,7 @@ export default function Kosar() {
     }
 
     async function removeItem(Cart_Item_Id) {
-        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCartItem/${Cart_Item_Id}`, {
+        const res = await fetch(`http://localhost:3000/cart/deleteCartItem/${Cart_Item_Id}`, {
             method: 'DELETE'
         });
         if (res.ok) {
@@ -50,7 +46,7 @@ export default function Kosar() {
             await removeItem(Cart_Item_Id);
             return;
         }
-        const res = await authFetch(`http://127.0.0.1:3000/cart/modifyCartItem/${Cart_Item_Id}`, {
+        const res = await fetch(`http://localhost:3000/cart/modifyCartItem/${Cart_Item_Id}`, {
             method: 'PUT',
             body: JSON.stringify({ Quantity: newQuantity })
         });
@@ -74,7 +70,7 @@ export default function Kosar() {
         const Cart_Id = kosarItems[0]?.Cart_Id;
         if (!Cart_Id) return;
 
-        const res = await authFetch(`http://127.0.0.1:3000/cart/deleteCart/${Cart_Id}`, {
+        const res = await fetch(`http://localhost:3000/cart/deleteCart/${Cart_Id}`, {
             method: 'DELETE'
         });
 
@@ -134,9 +130,12 @@ export default function Kosar() {
                         <h3 className="text-xl font-semibold">Összesen:</h3>
                         <p className="text-xl font-bold">{osszesAr.toLocaleString()} Ft</p>
                     </div>
-                    <button onClick={sikeresVasarlas} className="fizetes-gomb">
-                        Fizetés
-                    </button>
+                    <a href="/rendelesek">
+                        <button className="fizetes-gomb">
+                            Rendelés folytatása
+                        </button>
+                    </a>
+
                 </div>
             </div>
             <Footer />

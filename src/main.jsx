@@ -10,6 +10,7 @@ import Termekek from './pages/Termekek';
 import Fiokom from './pages/Fiokom';
 import Termek from './pages/Termek';
 import Admin from './pages/Admin';
+import Rendelesek from './pages/Rendelesek';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/fiokom" element={<Fiokom />} />
         <Route path="/getProduct/:id" element={<Termek />} />
         <Route path="/adminpanel" element={<Admin />} />
+        <Route path="/rendelesek" element={<Rendelesek />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
