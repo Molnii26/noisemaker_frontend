@@ -33,6 +33,18 @@
   force = true
 
 [[redirects]]
+from = "/kosar"
+to = "https://nodejs304.dszcbaross.edu.hu/cart"
+status = 200
+force = true
+
+[[redirects]]
+  from = "/termekek"
+  to = "https://nodejs304.dszcbaross.edu.hu/products"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
