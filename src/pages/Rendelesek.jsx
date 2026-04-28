@@ -20,7 +20,7 @@ function Rendelesek() {
     useEffect(() => {
         async function fetchKosar() {
             try {
-                const res = await fetch('http://localhost:3000/cart/CartItems', {
+                const res = await fetch('/cart/CartItems', {
                     credentials: 'include'
                 })
                 if (res.status === 400) return
@@ -48,7 +48,7 @@ function Rendelesek() {
 
         try {
             // 1. Rendelés leadása a backendnek
-            const orderRes = await fetch(`http://localhost:3000/orders/addOrder`, {
+            const orderRes = await fetch(`/orders/addOrder`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -70,7 +70,7 @@ function Rendelesek() {
             // 2. Kosár törlése a backendből
             const Cart_Id = kosarItems[0]?.Cart_Id
             if (Cart_Id) {
-                await fetch(`http://localhost:3000/cart/deleteCart/${Cart_Id}`, {
+                await fetch(`/cart/deleteCart/${Cart_Id}`, {
                     method: 'DELETE',
                     credentials: 'include'
                 })

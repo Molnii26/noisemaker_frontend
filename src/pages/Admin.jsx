@@ -5,12 +5,6 @@ import Footer from "../components/Footer";
 import Table from "../components/Table";
 import { userEdit, deleteUser } from "../api";
 
-const authFetch = (url, options = {}) => fetch(url, {
-    ...options,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers }
-})
-
 export default function Admin() {
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
@@ -36,21 +30,21 @@ export default function Admin() {
 
 
     useEffect(() => {
-        authFetch("http://127.0.0.1:3000/users/getAllUsers")
+        fetch("/users/getAllUsers")
             .then(res => res.json())
             .then(data => setUsers(data))
             .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
-        authFetch("http://127.0.0.1:3000/orders/allOrders")
+        fetch("/orders/allOrders")
             .then(res => res.json())
             .then(data => setOrders(Array.isArray(data) ? data : data.orders ?? []))
             .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
-        authFetch("http://127.0.0.1:3000/products/getAllProducts")
+        fetch("/products/getAllProducts")
             .then(res => res.json())
             .then(data => setProducts(Array.isArray(data) ? data : data.products ?? []))
             .catch(err => console.error(err))
@@ -60,7 +54,7 @@ export default function Admin() {
         if (item.Product_Id !== undefined) {
             if (!window.confirm(`Biztosan törölni akarod a "${item.Product_Name}" terméket?`)) return
 
-            const res = await authFetch(`http://127.0.0.1:3000/products/deleteProduct/${item.Product_Id}`, { method: 'DELETE' })
+            const res = await fetch(`/products/deleteProduct/${item.Product_Id}`, { method: 'DELETE' })
             const data = await res.json()
             if (data.error) return alert(data.error)
 
@@ -71,7 +65,7 @@ export default function Admin() {
         if (item.Order_Id !== undefined) {
             if (!window.confirm(`Biztosan törölni akarod a ${item.Order_Id} számú rendelést?`)) return
 
-            const res = await authFetch(`http://127.0.0.1:3000/orders/deleteOrder/${item.Order_Id}`, { method: 'DELETE' })
+            const res = await fetch(`/orders/deleteOrder/${item.Order_Id}`, { method: 'DELETE' })
             const data = await res.json()
             if (data.error) return alert(data.error)
 
@@ -149,7 +143,7 @@ export default function Admin() {
     }
 
     async function editOrder(Order_Id) {
-        const res = await authFetch(`http://127.0.0.1:3000/orders/orderStatusModify/${Order_Id}`, {
+        const res = await fetch(`/orders/orderStatusModify/${Order_Id}`, {
             method: 'PUT',
             body: JSON.stringify({ Order_Status: OrderStatus })
         })
@@ -162,8 +156,9 @@ export default function Admin() {
     }
 
     async function editProduct(Product_Id) {
-        const res = await authFetch(`http://127.0.0.1:3000/products/modifyProduct/${Product_Id}`, {
+        const res = await fetch(`/products/modifyProduct/${Product_Id}`, {
             method: 'PUT',
+            credentials: 'include',
             body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
         })
         const data = await res.json()
@@ -178,7 +173,7 @@ export default function Admin() {
         if (!Product_Name || !ProductPrice || !ProductDescription || !Stock)
             return alert('Minden mezőt ki kell tölteni!')
 
-        const res = await authFetch('http://127.0.0.1:3000/products/addProduct', {
+        const res = await fetch('/products/addProduct', {
             method: 'POST',
             body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
         })
@@ -191,7 +186,7 @@ export default function Admin() {
     }
 
     async function editCategory(Product_Id) {
-        const res = await authFetch(`http://127.0.0.1:3000/categories/modifyCategoryName/${Product_Id}`, {
+        const res = await fetch(`/categories/modifyCategoryName/${Product_Id}`, {
             method: 'PUT',
             body: JSON.stringify({ Product_Name, ProductPrice, ProductDescription, Stock })
         })

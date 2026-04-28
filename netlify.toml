@@ -15,34 +15,29 @@
   force = true
 
 [[redirects]]
-  from = "/admin/*"
-  to = "https://nodejs304.dszcbaross.edu.hu/admin/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/login"
-  to = "https://nodejs304.dszcbaross.edu.hu/login"
-  status = 200  
-  force = true
-
-[[redirects]]
-  from = "/logout"
-  to = "https://nodejs304.dszcbaross.edu.hu/logout"
-  status = 200
-  force = true
-
-[[redirects]]
-from = "/kosar"
-to = "https://nodejs304.dszcbaross.edu.hu/kosar"
+from = "/cart"
+to = "https://nodejs304.dszcbaross.edu.hu/cart"
 status = 200
 force = true
 
 [[redirects]]
-  from = "/termekek"
-  to = "https://nodejs304.dszcbaross.edu.hu/termekek"
+  from = "/products"
+  to = "https://nodejs304.dszcbaross.edu.hu/products"
   status = 200
   force = true
+
+  [[redirects]]
+  from = "/categories"
+  to = "https://nodejs304.dszcbaross.edu.hu/categories"
+  status = 200
+  force = true
+
+  [[redirects]]
+  from = "/orders"
+  to = "https://nodejs304.dszcbaross.edu.hu/orders"
+  status = 200
+  force = true
+
 
 [[redirects]]
   from = "/*"

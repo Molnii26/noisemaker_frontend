@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export default function Kosar() {
     const [kosarItems, setKosarItems] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    console.log(kosarItems);
     useEffect(() => {
         fetchKosar();
     }, []);

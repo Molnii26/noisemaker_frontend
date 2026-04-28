@@ -1,5 +1,4 @@
 import CategoryInfo from "./CategoryInfo";
-import Gomb from "./Gomb";
 import OrderInfo from "./OrderInfo";
 import ProductInfo from "./ProductInfo";
 import UserInfo from "./UserInfo";
