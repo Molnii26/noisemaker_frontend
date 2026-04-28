@@ -1,18 +1,46 @@
-# React + Vite
+# Noisemaker Dokumentáció
+## Készítette: <br/>
+#### - **Májer Antal:** *(Backend, mySQL adatbázis)* [Backend](https://github.com/Molnii26/noisemaker_backend) <br/> 
+#### - **Molnár Ádám:** *(Frontend)* [Frontend](https://github.com/Molnii26/noisemaker_frontend)
+---
+### A projekt <br/>
+> A noisemaker egy webshop ahol különböző hangszereket tudsz vásárolni. Pengetős, Billentyűs, Ütős, Fúvós hangszereket. Ezeken kategóriákon belül a következőket veheted: Akusztikus Gitár, Elektromos gitár
+Basszusgitár, Zongora, Szintetizátor, MIDI keyboard, Dob szett, Cintányér, Szaxofon, Trombita, Fuvola. A termékeket különféle módon szűrheted, majd miután kosárba tetted amit szeretnél, megrendelheted.
+---
+#### Projekt elindítása
+`npm install` vagy `npm i` (Ezt csak ha még nem tölötted le a csomagokat) <br/>
+`npm run dev` (Ezzel elindul a projekt)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## A projekt felépítése:
+```bash
+FRONTEND
+├── images/ 
+├── productImages/
+├── public/  
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── css/
+│   ├── pages/
+│   └── App.js
+├── video/
+├── .gitignore
+├── downloadImages.js
+├── eslint.config.js
+├── index.html
+├── netlify.toml/
+├── package.json
+└── README.md
+├── vite.config.js
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+#### Felhasznált eszközök
+- [Visual Studio Code](https://code.visualstudio.com)
+- [ChatGPT](https://chatgpt.com)
+- [ClaudeAI](https://claude.ai)
+- [NPM](https://www.npmjs.com)
+- [GitHub](https://github.com)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
