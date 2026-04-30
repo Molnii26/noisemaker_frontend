@@ -61,7 +61,7 @@ div.filter {
   padding: 40px;
   background-color: none;
   justify-content: center;
-  
+
   display: flex;
   flex-direction: row;
   color: white;
@@ -94,11 +94,17 @@ img.carousel-img {
 }
 
 img.product-img {
-  height: fit-content;
-  width: 150px;
-  margin: 10px;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
 }
-
+.kosar-item-kep {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
 h1 {
   font-family: 'Bodoni', sans-serif;
@@ -125,10 +131,11 @@ h1.navbar-cim {
 h2 {
   color: #F5F5F7;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 60px;
   font-size: 30px;
   font-family: 'Bodoni', sans-serif;
   text-decoration: none;
+
 }
 
 a {
@@ -264,6 +271,8 @@ a.cim {
   color: #777;
 }
 
+
+
 /*-------------------------------------------------------------------------*/
 
 
@@ -281,7 +290,7 @@ div.container-reg {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 300px;
+  width: 800px;
   color: #F5F5F7;
   margin-bottom: 60px;
   font-size: 20px;
@@ -339,9 +348,6 @@ button.gombok {
 }
 
 
-input.form-control {
-  margin-top: -40px;
-}
 
 
 
@@ -377,15 +383,19 @@ div.products-container {
 }
 
 
-
 .product-card {
   background-color: #303031;
   padding: 20px;
   border-radius: 10px;
-  height: auto;
-  width: 200px;
+  width: 220px;
+  height: 320px;
   color: white;
-  transition: 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden; /* EZ FONTOS */
 }
 
 .product-card:hover {
@@ -460,14 +470,63 @@ div.adminpanel {
   gap: 100px;
   background-color: #f5f5f7b6;
   margin-bottom: 200px;
+  border-radius: 10px;
+
 }
 
-div.table-admin {
-  width: 100%;
-  justify-self: center;
-  align-self: center;
-  gap: 100px;
+.adminpanel h2 {
+  margin-top: 40px;
 }
+
+.table-admin {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+
+
+.table-admin th,
+.table-admin td {
+  padding: 10px 14px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table-admin th {
+  text-align: center;
+}
+
+.table-admin td:last-child {
+  text-align: center;
+  min-width: 180px;
+}
+
+.table-admin td:last-child button {
+  margin: 3px;
+}
+
+
+
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+
+.adminpanel table {
+  margin-bottom: 30px;
+}
+
+
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
 
 h1.fiokom-cim {
   color: #1A1A1D;
@@ -591,10 +650,10 @@ div.termek-leiras {
   }
 
   div.products-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
 
   a.cim {
     margin-left: 10px;

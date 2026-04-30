@@ -1,4 +1,6 @@
 export default function OrderInfo({ order_id, user_id, order_status, date, phoneNumber, postalCode, city, address, onModify, onDelete }) {
+    
+   
     const orderObject = {
         Order_Id: order_id,
         User_Id: user_id,

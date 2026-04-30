@@ -67,7 +67,7 @@ export default function Bejelentkezes() {
                 <div className="text-center mt-3">
                     <a href="/fooldal">
                         <Gomb
-                            onClick=''
+                            onClick={() => navigate('/fooldal')}
                             text='Vissza a főoldalra'
                         />
                     </a>
@@ -76,7 +76,7 @@ export default function Bejelentkezes() {
                 <div className="text-center mt-3">
                     <a href="/regisztracio">
                         <Gomb
-                            onClick=''
+                            onClick={() => navigate('/regisztracio')}
                             text='Még nincs fiókom'
                         />
                     </a>

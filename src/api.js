@@ -1,17 +1,21 @@
-const BACKEND_URL_USER = '/users'
-const BACKEND_URL_PRODUCTS = '/products'
-const BACKEND_URL_CATEGORIES = '/categories'
-const BACKEND_URL_ORDERS = '/orders'
+export const API_URL = "https://nodejs304.dszcbaross.edu.hu"
+
+const BACKEND_URL_USER = "https://nodejs304.dszcbaross.edu.hu/users"
+const BACKEND_URL_PRODUCTS = 'https://nodejs304.dszcbaross.edu.hu/products'
+const BACKEND_URL_CATEGORIES = 'https://nodejs304.dszcbaross.edu.hu/categories'
+const BACKEND_URL_ORDERS = 'https://nodejs304.dszcbaross.edu.hu/orders'
 
 export async function regisztracio(username, email, psw){
     const res = await fetch(`${BACKEND_URL_USER}/register`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username, email, psw })
+        
     })
-
+console.log("REGISTER INPUT:", username, email)
     //console.log(res)
 
     const data = await res.json()
@@ -25,6 +29,7 @@ export async function regisztracio(username, email, psw){
 export async function bejelentkezes(email, psw){
     const res = await fetch(`${BACKEND_URL_USER}/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },

@@ -13,6 +13,12 @@ function Termekek() {
     const [categoriesData, setCategoriesData] = useState([]);
     const [subcategoriesData, setSubcategoriesData] = useState([]);
 
+    const getImageUrl = (img) => {
+        if (!img) return "/placeholder.png"
+        if (img.startsWith("http")) return img
+        return `${API_URL}${img}`
+    }
+
     useEffect(() => {
         (async () => {
             const data = await getProducts();
@@ -35,21 +41,20 @@ function Termekek() {
         setSubcategory("összes");
     };
 
-    // Csak az aktuális főkategóriához tartozó alkategóriák
+
     const filteredSubcategories = subcategoriesData.filter(
         sub => category === "összes" || Number(sub.Category_Id) === Number(category)
     );
 
-    // A termékeken nincs Category_Id, ezért az alkategóriák segítségével
-    // megkeressük, hogy az adott termék melyik főkategóriába tartozik.
+
     const filteredProducts = productsData.filter(product => {
 
-        // Megkeressük azt az alkategóriát, amelyhez a termék tartozik
+
         const productSubcategory = subcategoriesData.find(
             sub => Number(sub.Subcategory_Id) === Number(product.Subcategory_Id)
         );
 
-        // Az alkategóriából kiolvasható a főkategória azonosítója
+
         const productCategoryId = productSubcategory ? Number(productSubcategory.Category_Id) : null;
 
         return (
@@ -58,11 +63,14 @@ function Termekek() {
         );
     })
         .sort((a, b) => {
-            if (sortType === "price-asc") return a.ProductPrice - b.ProductPrice;
-            if (sortType === "price-desc") return b.ProductPrice - a.ProductPrice;
+            const priceA = Number(a.ProductPrice.replace(/\s/g, ''));
+            const priceB = Number(b.ProductPrice.replace(/\s/g, ''));
+
+            if (sortType === "price-asc") return priceA - priceB;
+            if (sortType === "price-desc") return priceB - priceA;
             if (sortType === "name-asc") return a.Product_Name.localeCompare(b.Product_Name);
             if (sortType === "name-desc") return b.Product_Name.localeCompare(a.Product_Name);
-            return 0;
+
         });
 
     return (
@@ -110,6 +118,7 @@ function Termekek() {
                 </div>
 
                 <div className="products-container" id='fadeInLeft-animation'>
+
                     {filteredProducts.length === 0 ? (
                         <p>Nincs találat.</p>
                     ) : (
@@ -117,11 +126,10 @@ function Termekek() {
                             <a
                                 href={`/getProduct/${product.Product_Id}`}
                                 key={product.Product_Id}
-                                className="product-card"
-                            >
+                                className="product-card">
+
                                 <img
-                                    className="product-img"
-                                    src={product.ProductIMG}
+                                    src={getImageUrl(product.ProductIMG)}
                                     alt={product.Product_Name}
                                 />
                                 <h4>{product.Product_Name}</h4>

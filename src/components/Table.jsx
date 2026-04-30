@@ -1,9 +1,12 @@
 import CategoryInfo from "./CategoryInfo";
 import OrderInfo from "./OrderInfo";
 import ProductInfo from "./ProductInfo";
+import SubCategoryInfo from "./SubCategoryInfo";
 import UserInfo from "./UserInfo";
 
-export default function Table({ users, orders, products, categories, onModify, onModifyOrder, onModifyProduct, onModifyCategory, onDelete }) {
+export default function Table({
+    users, orders, products, categories, subcategories, onModify, onModifyOrder, onModifyProduct, onModifyCategory, onModifySubCategory, onDelete
+}) {
     return (
         <div className="adminpanel">
             <h2>Felhasználók</h2>
@@ -13,6 +16,7 @@ export default function Table({ users, orders, products, categories, onModify, o
                         <th>ID</th>
                         <th>Név</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Műveletek</th>
                     </tr>
                 </thead>
@@ -23,6 +27,8 @@ export default function Table({ users, orders, products, categories, onModify, o
                             user_id={user.User_Id}
                             username={user.Username}
                             email={user.Email}
+
+                            role={user.User_Role}
                             onModify={() => onModify(user)}
                             onDelete={() => onDelete(user)}
                         />
@@ -68,6 +74,7 @@ export default function Table({ users, orders, products, categories, onModify, o
             <table className="table-admin">
                 <thead>
                     <tr>
+                        <th>Kép</th>
                         <th>ID</th>
                         <th>Név</th>
                         <th>Leírás</th>
@@ -85,6 +92,7 @@ export default function Table({ users, orders, products, categories, onModify, o
                             description={product.ProductDescription}
                             product_price={product.ProductPrice}
                             stock={product.Stock}
+                            product_img={product.ProductIMG}
                             onModify={() => onModifyProduct(product)}
                             onDelete={() => onDelete(product)}
                         />
@@ -96,8 +104,9 @@ export default function Table({ users, orders, products, categories, onModify, o
             <table className="table-admin">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Kategória ID</th>
                         <th>Kategória neve</th>
+                        <th>Műveletek</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,6 +117,31 @@ export default function Table({ users, orders, products, categories, onModify, o
                             categoryName={category.CategoryName}
                             onModify={() => onModifyCategory(category)}
                             onDelete={() => onDelete(category)}
+                        />
+                    ))}
+                </tbody>
+            </table>
+
+            <h2>Alkategóriák</h2>
+            <table className="table-admin">
+                <thead>
+                    <tr>
+
+                        <th>Alkategória ID</th>
+                        <th>Kategóira ID</th>
+                        <th>Alkategória neve</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Array.isArray(subcategories) && subcategories.map(subcategory => (
+                        <SubCategoryInfo
+                            key={subcategory.Subcategory_Id}
+                            subCategory_id={subcategory.Subcategory_Id}
+                            category_id={subcategory.Category_Id}
+                            SubCategoryName={subcategory.Subcategory_Name}
+                            onModifySub={onModifySubCategory}
+                            onDeleteSub={onDelete}
                         />
                     ))}
                 </tbody>
