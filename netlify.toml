@@ -3,41 +3,34 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://nodejs304.dszcbaross.edu.hu/api/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/users/*"
   to = "https://nodejs304.dszcbaross.edu.hu/users/:splat"
   status = 200
   force = true
 
 [[redirects]]
-from = "/cart"
-to = "https://nodejs304.dszcbaross.edu.hu/cart"
-status = 200
-force = true
+  from = "/cart/*"
+  to = "https://nodejs304.dszcbaross.edu.hu/cart/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
-  from = "/products"
-  to = "https://nodejs304.dszcbaross.edu.hu/products"
+  from = "/products/*"
+  to = "https://nodejs304.dszcbaross.edu.hu/products/:splat"
   status = 200
   force = true
 
-  [[redirects]]
-  from = "/categories"
-  to = "https://nodejs304.dszcbaross.edu.hu/categories"
+[[redirects]]
+  from = "/categories/*"
+  to = "https://nodejs304.dszcbaross.edu.hu/categories/:splat"
   status = 200
   force = true
 
-  [[redirects]]
-  from = "/orders"
-  to = "https://nodejs304.dszcbaross.edu.hu/orders"
+[[redirects]]
+  from = "/orders/*"
+  to = "https://nodejs304.dszcbaross.edu.hu/orders/:splat"
   status = 200
   force = true
-
 
 [[redirects]]
   from = "/*"

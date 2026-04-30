@@ -10,7 +10,7 @@ function Termek() {
     const [productsData, setProductsData] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         (async () => {
             const data = await getProducts();
@@ -22,21 +22,21 @@ function Termek() {
 
     const addToKosar = async () => {
         if (!product) return;
-    
-        const res = await fetch('http://localhost:3000/cart/addCart', {
+
+        const res = await fetch(`${API_URL}/cart/addCart`, {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Product_Id: product.Product_Id, Quantity: 1 })
         });
-    
+
         const data = await res.json();
-    
+
         if (data.error) {
             alert(data.error);
             return;
         }
-    
+
         navigate('/kosar');
     };
 
@@ -50,7 +50,11 @@ function Termek() {
                 <div className='termek-leiras'>
                     <h2>{product?.Product_Name}</h2>
                     <p>{product?.ProductDescription}</p>
-                    <p>Ár: {product?.ProductPrice?.toLocaleString()} Ft</p>
+                    <p>
+                        Ár: {
+                            Number(String(product?.ProductPrice).replace(/\s/g, '')).toLocaleString()
+                        } Ft
+                    </p>
                     <Gomb
                         onClick={addToKosar}
                         className='px-3 py-1 text-decoration-none rounded text-dark fs-4 w-100'

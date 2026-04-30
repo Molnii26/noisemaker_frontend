@@ -1,43 +1,60 @@
-import React, { useState, useEffect, navigate } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function Kosar() {
     const [kosarItems, setKosarItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log(kosarItems);
+
+    function formatPrice(price) {
+        return Number(String(price).replace(/\s/g, ""));
+    }
+
     useEffect(() => {
         fetchKosar();
     }, []);
 
+
+
     async function fetchKosar() {
         try {
-            const res = await fetch('http://localhost:3000/cart/CartItems', {
+            const res = await fetch(`${API_URL}/cart/CartItems`, {
+                method: "GET",
                 credentials: "include"
             });
-            if (res.status === 400) {
+
+            if (!res.ok) {
                 setKosarItems([]);
                 return;
             }
+
             const data = await res.json();
+
             if (data.error) {
                 setKosarItems([]);
                 return;
             }
+
             setKosarItems(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error(err);
+            setKosarItems([]);
         } finally {
             setLoading(false);
         }
     }
 
+
     async function removeItem(Cart_Item_Id) {
-        const res = await fetch(`http://localhost:3000/cart/deleteCartItem/${Cart_Item_Id}`, {
-            method: 'DELETE'
+        const res = await fetch(`${API_URL}/cart/deleteCartItem/${Cart_Item_Id}`, {
+            method: "DELETE",
+            credentials: "include"
         });
+
         if (res.ok) {
-            setKosarItems(prev => prev.filter(item => item.Cart_Item_Id !== Cart_Item_Id));
+            setKosarItems(prev =>
+                prev.filter(item => item.Cart_Item_Id !== Cart_Item_Id)
+            );
         }
     }
 
@@ -46,10 +63,16 @@ export default function Kosar() {
             await removeItem(Cart_Item_Id);
             return;
         }
-        const res = await fetch(`http://localhost:3000/cart/modifyCartItem/${Cart_Item_Id}`, {
-            method: 'PUT',
+
+        const res = await fetch(`${API_URL}/cart/modifyCartItem/${Cart_Item_Id}`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ Quantity: newQuantity })
         });
+
         if (res.ok) {
             setKosarItems(prev =>
                 prev.map(item =>
@@ -61,83 +84,78 @@ export default function Kosar() {
         }
     }
 
-    async function sikeresVasarlas() {
-        if (kosarItems.length === 0) {
-            alert("A kosár üres");
-            return;
-        }
-
-        const Cart_Id = kosarItems[0]?.Cart_Id;
-        if (!Cart_Id) return;
-
-        const res = await fetch(`http://localhost:3000/cart/deleteCart/${Cart_Id}`, {
-            method: 'DELETE'
-        });
-
-        if (res.ok) {
-            alert("Sikeres vásárlás!");
-            setKosarItems([]);
-        } else {
-            alert("Hiba történt a vásárlásnál.");
-        }
-    }
-
-    const osszesAr = kosarItems.reduce(
-        (sum, item) => sum + Number(item.ProductPrice) * Number(item.Quantity), 0
-    );
+    const osszesAr = kosarItems.reduce((sum, item) => {
+        const price = formatPrice(item.ProductPrice);
+        return sum + price * Number(item.Quantity);
+    }, 0);
 
     return (
         <>
-            <Header />
+            <Header></Header>
             <div className="kosar_egesz">
                 <div className="jobb-kosar">
-                    <h2 className="text-2xl font-bold mb-4">Kosár</h2>
-                    <div className="space-y-4">
-                        {loading ? (
-                            <p>Betöltés...</p>
-                        ) : kosarItems.length === 0 ? (
-                            <p>A kosár üres.</p>
-                        ) : (
-                            kosarItems.map(item => (
-                                <div key={item.Cart_Item_Id} className="kosar-item">
-                                    <img
-                                        src={item.ProductIMG}
-                                        alt={item.Product_Name}
-                                        className="kosar-item-kep"
-                                    />
-                                    <div className="kosar-item-info">
-                                        <p className="font-semibold">{item.Product_Name}</p>
-                                        <p>{Number(item.ProductPrice).toLocaleString()} Ft</p>
-                                        <div className="kosar-quantity">
-                                            <button onClick={() => modifyQuantity(item.Cart_Item_Id, item.Quantity - 1)}>−</button>
-                                            <span>{item.Quantity}</span>
-                                            <button onClick={() => modifyQuantity(item.Cart_Item_Id, item.Quantity + 1)}>+</button>
-                                        </div>
+                    <h2>Kosár</h2>
+                    {loading ? (
+                        <p>Betöltés...</p>
+                    ) : kosarItems.length === 0 ? (
+                        <p>A kosár üres.</p>
+                    ) : (kosarItems.map(item => {
+                        const price = formatPrice(item.ProductPrice);
+                        const itemTotal = price * Number(item.Quantity);
+                        const imgSrc = item.ProductIMG?.startsWith("http")
+                            ? item.ProductIMG
+                            : `${API_URL}${item.ProductIMG}`;
+                            
+                        return (
+                            <div key={item.Cart_Item_Id} className="kosar-item">
+                                <img
+                                    src={imgSrc}
+                                    alt={item.Product_Name}
+                                    className="kosar-item-kep"
+                                />
+
+                                <div className="kosar-item-info">
+                                    <p>{item.Product_Name}</p>
+                                    <p>Darabár: {price.toLocaleString()} Ft</p>
+                                    <p>Összesen: {itemTotal.toLocaleString()} Ft</p>
+
+                                    <div className="kosar-quantity">
+                                        <button onClick={() => modifyQuantity(item.Cart_Item_Id, Number(item.Quantity) - 1)}>
+                                            −
+                                        </button>
+
+                                        <span>{item.Quantity}</span>
+
+                                        <button onClick={() => modifyQuantity(item.Cart_Item_Id, Number(item.Quantity) + 1)}>
+                                            +
+                                        </button>
                                     </div>
-                                    <button
-                                        onClick={() => removeItem(item.Cart_Item_Id)}
-                                        className="kosar-remove-gomb"
-                                    >
-                                        ✕
-                                    </button>
                                 </div>
-                            ))
-                        )}
-                    </div>
+
+                                <button
+                                    onClick={() => removeItem(item.Cart_Item_Id)}
+                                    className="kosar-remove-gomb"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        );
+                    })
+                    )}
                 </div>
+
                 <div className="bal-kosar">
-                    <div className="mt-6 flex justify-between items-center border-t border-zinc-800 pt-4">
-                        <h3 className="text-xl font-semibold">Összesen:</h3>
-                        <p className="text-xl font-bold">{osszesAr.toLocaleString()} Ft</p>
-                    </div>
+                    <h3>Összesen:</h3>
+                    <p>{osszesAr.toLocaleString()} Ft</p>
+
                     <a href="/rendelesek">
                         <button className="fizetes-gomb">
                             Rendelés folytatása
                         </button>
                     </a>
-
                 </div>
             </div>
+
             <Footer />
         </>
     );

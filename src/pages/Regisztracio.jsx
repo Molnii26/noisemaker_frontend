@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import Gomb from '../components/Gomb'
 import Header from '../components/Header'
 import InputMezo from '../components/InputMezo'
+import {useNavigate } from 'react-router-dom'
 import '../css/App.css'
 import { regisztracio } from '../api'
 
@@ -10,26 +11,30 @@ function Regisztracio() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [psw, setPsw] = useState('')
+    const [psw2, setPsw2] = useState('')
 
     const [uzenet, setUzenet] = useState('')
-    
+    const navigate = useNavigate();
+
     async function onReg() {
         setUzenet('')
 
-        if (!email || !username || !psw) {
+        if (!email || !username || !psw || !psw2) {
             return alert('Minden mezőt tölts ki!')
         }
-
+        if (psw !== psw2) {
+            return alert('A jelszavak nem egyeznek meg!')
+        }
         try {
             const data = await regisztracio(username, email, psw)
             if (data.error) {
                 return alert(data.error)
             }
             setUzenet(data.message)
-            setTimeout(() => navigate('/'), 2000)
-            
-        } catch (err) {           
-            return alert('Nem sikerült kapcsolódni a backendhez.')        
+            setTimeout(() => navigate('/bejelentkezes'), 500)
+
+        } catch (err) {
+            return alert('Nem sikerült kapcsolódni a backendhez.')
         }
     }
     return (
@@ -65,31 +70,39 @@ function Regisztracio() {
                     placeholder="*******"
                 />
 
+                <InputMezo
+                    label="Jelszó megerősítése"
+                    type="password"
+                    value={psw2}
+                    setValue={setPsw2}
+                    placeholder="*******"
+                />
+
                 <div className="text-center mt-3">
-                    <a href="/bejelentkezes">
+                    
                         <Gomb
                             szin='btn btn-dark px-4'
                             onClick={onReg}
                             text='Regisztráció'
                         />
-                    </a>
+                   
                 </div>
 
                 <div className="text-center mt-3">
-                    <a href="/fooldal">
+                    
                         <Gomb
                             szin='btn btn-ligth px-4'
-                            onClick=''
+                             onClick={() => navigate('/fooldal')}
                             text='Vissza a főoldalra'
                         />
-                    </a>
+                    
                 </div>
 
                 <div className="text-center mt-3">
                     <a href="/bejelentkezes">
                         <Gomb
                             szin='btn btn-ligth px-4'
-                            onClick=''
+                            onClick={() => navigate('/fooldal')}
                             text='Már van fiókom'
                         />
                     </a>

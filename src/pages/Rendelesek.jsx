@@ -20,7 +20,7 @@ function Rendelesek() {
     useEffect(() => {
         async function fetchKosar() {
             try {
-                const res = await fetch('/cart/CartItems', {
+                const res = await fetch(`${API_URL}/cart/CartItems`, {
                     credentials: 'include'
                 })
                 if (res.status === 400) return
@@ -33,6 +33,31 @@ function Rendelesek() {
         }
         fetchKosar()
     }, [])
+
+
+    //automatikus város lekérés postal code alapján
+    useEffect(() => {
+    if (!postal_code) return
+
+    async function fetchCity() {
+        try {
+            const res = await fetch(`${API_URL}/postalCodes/${postal_code}`)
+            const data = await res.json()
+
+            if (data.error) {
+                setCity('')
+                return
+            }
+
+            setCity(data.city)
+        } catch (err) {
+            console.log(err)
+            setCity('')
+        }
+    }
+
+    fetchCity()
+}, [postal_code])
 
     async function onOrder() {
         setUzenet('')
@@ -48,7 +73,7 @@ function Rendelesek() {
 
         try {
             // 1. Rendelés leadása a backendnek
-            const orderRes = await fetch(`/orders/addOrder`, {
+            const orderRes = await fetch(`${API_URL}/orders/addOrder`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -96,7 +121,7 @@ function Rendelesek() {
 
                 {uzenet && (
                     <div className="alert alert-success text-center my-2">
-                        ✅ {uzenet}
+                        {uzenet}
                     </div>
                 )}
 
