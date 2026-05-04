@@ -1,3 +1,5 @@
+import { API_URL } from "../api";
+
 export default function ProductInfo({ product_id, product_name, description, product_price, stock, product_img, onModify, onDelete }) {
     const productObject = {
         Product_Id: product_id,
@@ -6,6 +8,7 @@ export default function ProductInfo({ product_id, product_name, description, pro
         ProductPrice: product_price,
         Stock: stock
     }
+    
 
     const imgSrc = product_img?.startsWith("http")
         ? product_img
