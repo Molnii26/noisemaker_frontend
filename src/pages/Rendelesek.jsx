@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import Gomb from '../components/Gomb'
 import Header from '../components/Header'
 import InputMezo from '../components/InputMezo'
+import { API_URL } from "../api";
 import '../css/App.css'
 
 function Rendelesek() {
